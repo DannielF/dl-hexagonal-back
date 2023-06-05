@@ -7,17 +7,12 @@ export class Client {
   balance: number;
   transactions: Array<Transaction>;
 
-  static create(
-    email: string,
-    password: string,
-    balance: number,
-    transactions: Array<Transaction>,
-  ) {
+  static create(email: string, password: string) {
     const user = new Client();
     user.email = email;
-    user.balance = balance;
     user.password = password;
-    user.transactions = transactions;
+    user.balance = 1000;
+    user.transactions = [];
     return user;
   }
 }
