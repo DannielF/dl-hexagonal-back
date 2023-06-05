@@ -1,25 +1,22 @@
 import { Transaction } from './Transaction';
 
 export class Client {
-  userId: number;
-  fullName: string;
-  document: string;
-  phone: string;
-  address: string;
+  userId: string;
+  email: string;
+  password: string;
+  balance: number;
   transactions: Array<Transaction>;
 
   static create(
-    username: string,
-    document: string,
-    phone: string,
-    address: string,
+    email: string,
+    password: string,
+    balance: number,
     transactions: Array<Transaction>,
   ) {
     const user = new Client();
-    user.fullName = username;
-    user.document = document;
-    user.phone = phone;
-    user.address = address;
+    user.email = email;
+    user.balance = balance;
+    user.password = password;
     user.transactions = transactions;
     return user;
   }

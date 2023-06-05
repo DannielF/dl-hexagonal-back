@@ -1,7 +1,7 @@
 export class Transaction {
   transactionId: number;
   date: Date;
-  from: number;
-  to: number;
+  from: string;
+  to: string;
   quantity: number;
 }

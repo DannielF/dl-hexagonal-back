@@ -5,7 +5,7 @@ import { ClientRepository, ClientService } from '../ports';
 export class ClientDomainService implements ClientService {
   constructor(private repository: ClientRepository) {}
 
-  async findById(id: number): Promise<Client> {
+  async findById(id: string): Promise<Client> {
     const user = await this.repository.findById(id);
     if (!user) throw new ClientServiceError('User not found');
     return user;
@@ -19,13 +19,32 @@ export class ClientDomainService implements ClientService {
     return await this.repository.save(user);
   }
 
-  async update(id: number, user: Client): Promise<Client> {
+  async update(id: string, user: Client): Promise<Client> {
     const userDb = await this.findById(id);
     if (!userDb) throw new ClientServiceError('User do not exits');
     return this.repository.update(id, user);
   }
 
-  async delete(id: number): Promise<boolean> {
+  async updateBalance(
+    id: string,
+    balance: number,
+    operation: string,
+  ): Promise<void> {
+    const userDb = await this.findById(id);
+    switch (operation) {
+      case 'add':
+        userDb.balance += balance;
+        break;
+      case 'sub':
+        userDb.balance -= balance;
+        break;
+      default:
+        break;
+    }
+    await this.repository.update(id, userDb);
+  }
+
+  async delete(id: string): Promise<boolean> {
     const userDb = await this.findById(id);
     if (!userDb) throw new ClientServiceError('User do not exits');
     return this.repository.delete(id);

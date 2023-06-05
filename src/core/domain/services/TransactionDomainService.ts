@@ -1,18 +1,15 @@
 import { TransactionServiceError } from 'src/core/shared';
 import { Transaction } from '../entities';
-import {
-  ClientRepository,
-  TransactionRepository,
-  TransactionService,
-} from '../ports';
+import { TransactionRepository, TransactionService } from '../ports';
+import { ClientDomainService } from './ClientDomainService';
 
 export class TransactionDomainService implements TransactionService {
   constructor(
     private repository: TransactionRepository,
-    private clientRepository: ClientRepository,
+    private clientService: ClientDomainService,
   ) {}
 
-  async findById(id: number): Promise<Transaction> {
+  async findById(id: string): Promise<Transaction> {
     const transaction = await this.repository.findById(id);
     if (!transaction)
       throw new TransactionServiceError('Transaction not found');
@@ -27,12 +24,28 @@ export class TransactionDomainService implements TransactionService {
     const validation = await this.validateExistClient(transaction);
     if (validation)
       throw new TransactionServiceError('Receiver or sender not found');
+
+    await this.updateClientBalance(
+      transaction.from,
+      transaction.quantity,
+      'sub',
+    );
+    await this.updateClientBalance(transaction.to, transaction.quantity, 'add');
+
     return await this.repository.save(transaction);
   }
 
   async validateExistClient(transaction: Transaction): Promise<boolean> {
-    const from = await this.clientRepository.findById(transaction.from);
-    const to = await this.clientRepository.findById(transaction.to);
+    const from = await this.clientService.findById(transaction.from);
+    const to = await this.clientService.findById(transaction.to);
     if (!from || !to) return false;
+  }
+
+  async updateClientBalance(
+    id: string,
+    balance: number,
+    operation: string,
+  ): Promise<void> {
+    await this.clientService.updateBalance(id, balance, operation);
   }
 }
