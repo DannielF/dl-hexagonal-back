@@ -1,2 +1,2 @@
-export * from './Transaction';
 export * from './Client';
+export * from './Transaction';

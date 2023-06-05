@@ -1,2 +1,2 @@
-export * from './TransactionRepository';
 export * from './ClientRepository';
+export * from './TransactionRepository';

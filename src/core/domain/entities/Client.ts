@@ -1,7 +1,7 @@
 import { Transaction } from './Transaction';
 
 export class Client {
-  userId: string;
+  clientId: string;
   email: string;
   password: string;
   balance: number;

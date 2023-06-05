@@ -1,5 +1,5 @@
 export class Transaction {
-  transactionId: number;
+  transactionId: string;
   date: Date;
   from: string;
   to: string;
