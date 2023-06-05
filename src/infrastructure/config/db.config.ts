@@ -1,7 +1,5 @@
 import { DataSourceOptions } from 'typeorm';
-import dotenv from 'dotenv';
 import { ClientEntity, TransactionEntity } from '../postgres';
-dotenv.config();
 
 const databaseConfig: DataSourceOptions = {
   name: 'postgres',
@@ -13,7 +11,7 @@ const databaseConfig: DataSourceOptions = {
   password: process.env.DB_PASSWORD,
   entities: [ClientEntity, TransactionEntity],
   migrations: ['dist/migrations/*.js'],
-  synchronize: false,
+  synchronize: true,
   logging: true,
   migrationsRun: true,
 };

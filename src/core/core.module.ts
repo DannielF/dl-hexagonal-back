@@ -57,6 +57,7 @@ export class CoreModule {
     return {
       module: CoreModule,
       imports: [...modules],
+      global: true,
       providers: [
         WalletApplicationProvider,
         ClientServiceProvider,

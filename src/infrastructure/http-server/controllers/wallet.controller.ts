@@ -5,7 +5,7 @@ import { WALLET_APPLICATION } from 'src/core/core.module';
 import { AppResponse, CreateClientRequest } from '../models';
 import { Log } from 'src/infrastructure/shared';
 
-@Controller('wallet')
+@Controller('/wallet')
 @UseFilters(WalletFilter)
 export class WalletController {
   constructor(
