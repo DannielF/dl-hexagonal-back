@@ -1,9 +1,8 @@
 import { Transaction } from './Transaction';
 
-export class User {
+export class Client {
   userId: number;
-  username: string;
-  password: string;
+  fullName: string;
   document: string;
   phone: string;
   address: string;
@@ -11,15 +10,13 @@ export class User {
 
   static create(
     username: string,
-    password: string,
     document: string,
     phone: string,
     address: string,
     transactions: Array<Transaction>,
   ) {
-    const user = new User();
-    user.username = username;
-    user.password = password;
+    const user = new Client();
+    user.fullName = username;
     user.document = document;
     user.phone = phone;
     user.address = address;
