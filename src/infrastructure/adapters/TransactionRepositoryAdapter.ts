@@ -23,6 +23,9 @@ export class TransactionRepositoryAdapter implements TransactionRepository {
         client: true,
       },
       loadRelationIds: true,
+      order: {
+        date: 'DESC',
+      },
     });
   }
 
