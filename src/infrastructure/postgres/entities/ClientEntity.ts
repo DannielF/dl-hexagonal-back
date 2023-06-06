@@ -1,16 +1,9 @@
-import { Column, Entity, OneToMany } from 'typeorm';
-import { randomUUID } from 'node:crypto';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { TransactionEntity } from './TransactionEntity';
 
 @Entity({ name: 'clients' })
 export class ClientEntity {
-  @Column({
-    name: 'client_id',
-    primary: true,
-    generated: true,
-    type: 'uuid',
-    default: () => randomUUID(),
-  })
+  @PrimaryGeneratedColumn('uuid', { name: 'client_id' })
   clientId: string;
 
   @Column({ name: 'email', type: 'varchar', length: 255 })
