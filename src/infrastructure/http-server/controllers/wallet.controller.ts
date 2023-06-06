@@ -1,4 +1,11 @@
-import { Body, Controller, Inject, Post, UseFilters } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Post,
+  UseFilters,
+} from '@nestjs/common';
 import { WalletFilter } from '../exception-filters/wallet-exception.filter';
 import { WalletApplication } from 'src/core/application';
 import { WALLET_APPLICATION } from 'src/core/core.module';
@@ -15,6 +22,28 @@ export class WalletController {
   constructor(
     @Inject(WALLET_APPLICATION) private application: WalletApplication,
   ) {}
+
+  @Get('/clients')
+  async findAllClients(): Promise<AppResponse> {
+    Log.info('Finding all clients');
+    const response = await this.application.findAllClients();
+    return {
+      status: 200,
+      message: 'Clients found successfully',
+      data: response,
+    };
+  }
+
+  @Get('/transactions')
+  async findAllTransactions(): Promise<AppResponse> {
+    Log.info('Finding all transactions');
+    const response = await this.application.findAllTransactions();
+    return {
+      status: 200,
+      message: 'Transactions found successfully',
+      data: response,
+    };
+  }
 
   @Post()
   async createWallet(

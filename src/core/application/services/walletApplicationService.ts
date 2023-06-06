@@ -9,6 +9,14 @@ export class WalletApplicationService implements WalletApplication {
     private transaction: TransactionService,
   ) {}
 
+  async findAllClients(): Promise<Client[]> {
+    return await this.client.findAll();
+  }
+
+  async findAllTransactions(): Promise<Transaction[]> {
+    return await this.transaction.findAll();
+  }
+
   async createClient(newClient: NewClientDto): Promise<Client> {
     const entity = Client.create(newClient.email, newClient.password);
     return await this.client.save(entity);
