@@ -1,5 +1,5 @@
 import { TransactionServiceError } from 'src/core/shared';
-import { Transaction } from '../entities';
+import { Transaction, TransactionType } from '../entities';
 import { TransactionRepository, TransactionService } from '../ports';
 import { ClientDomainService } from './ClientDomainService';
 
@@ -12,7 +12,7 @@ export class TransactionDomainService implements TransactionService {
   async findByClientId(id: string): Promise<Array<Transaction>> {
     const transactions = await this.repository.findByClientId(id);
     if (!transactions)
-      throw new TransactionServiceError('Transaction not found');
+      throw new TransactionServiceError('Transactions not found');
     return transactions;
   }
 
@@ -20,7 +20,7 @@ export class TransactionDomainService implements TransactionService {
     return await this.repository.findAll();
   }
 
-  async save(transaction: Transaction): Promise<Transaction> {
+  async transfer(transaction: Transaction): Promise<Transaction> {
     if (transaction.from === transaction.to)
       throw new TransactionServiceError(
         'Sender and receiver cannot be the same',
@@ -32,20 +32,55 @@ export class TransactionDomainService implements TransactionService {
     await this.clientService.updateBalance(
       transaction.from,
       transaction.quantity,
-      transaction.type,
+      TransactionType.WITHDRAW,
     );
     await this.clientService.updateBalance(
       transaction.to,
       transaction.quantity,
-      transaction.type,
+      TransactionType.DEPOSIT,
+    );
+
+    return await this.repository.save(transaction);
+  }
+
+  async deposit(transaction: Transaction): Promise<Transaction> {
+    if (transaction.from !== transaction.to)
+      throw new TransactionServiceError('Sender and receiver must be the same');
+
+    const validation = await this.validateExistClients(transaction);
+    if (validation) throw new TransactionServiceError('wallet not found');
+
+    await this.clientService.updateBalance(
+      transaction.from,
+      transaction.quantity,
+      TransactionType.DEPOSIT,
+    );
+
+    return await this.repository.save(transaction);
+  }
+
+  async withdraw(transaction: Transaction): Promise<Transaction> {
+    if (transaction.from !== transaction.to)
+      throw new TransactionServiceError('Sender and receiver must be the same');
+
+    const validation = await this.validateExistClients(transaction);
+    if (validation) throw new TransactionServiceError('wallet not found');
+
+    await this.clientService.updateBalance(
+      transaction.from,
+      transaction.quantity,
+      TransactionType.WITHDRAW,
     );
 
     return await this.repository.save(transaction);
   }
 
   async validateExistClients(transaction: Transaction): Promise<boolean> {
-    const from = await this.clientService.findById(transaction.from);
-    const to = await this.clientService.findById(transaction.to);
-    if (!from || !to) return false;
+    if (transaction.from !== transaction.to) {
+      const from = await this.clientService.findById(transaction.from);
+      const to = await this.clientService.findById(transaction.to);
+      if (!from || !to) return false;
+    }
+    return (await this.clientService.findById(transaction.from)) ? true : false;
   }
 }

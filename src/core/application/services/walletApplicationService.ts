@@ -29,11 +29,9 @@ export class WalletApplicationService implements WalletApplication {
     const entity = Client.create(newClient.email, newClient.password);
     return await this.client.save(entity);
   }
-  async makeTransaction(
-    newTransaction: NewTransactionDto,
-  ): Promise<Transaction> {
-    const client = Client.createWithId(newTransaction.from);
 
+  async makeTransfer(newTransaction: NewTransactionDto): Promise<Transaction> {
+    const client = Client.createWithId(newTransaction.from);
     const entity = Transaction.create(
       newTransaction.from,
       newTransaction.to,
@@ -41,6 +39,30 @@ export class WalletApplicationService implements WalletApplication {
       newTransaction.type,
       client,
     );
-    return await this.transaction.save(entity);
+    return await this.transaction.transfer(entity);
+  }
+
+  makeDeposit(newTransaction: NewTransactionDto): Promise<Transaction> {
+    const client = Client.createWithId(newTransaction.from);
+    const entity = Transaction.create(
+      newTransaction.from,
+      newTransaction.to,
+      newTransaction.quantity,
+      newTransaction.type,
+      client,
+    );
+    return this.transaction.deposit(entity);
+  }
+
+  makeWithdraw(newTransaction: NewTransactionDto): Promise<Transaction> {
+    const client = Client.createWithId(newTransaction.from);
+    const entity = Transaction.create(
+      newTransaction.from,
+      newTransaction.to,
+      newTransaction.quantity,
+      newTransaction.type,
+      client,
+    );
+    return this.transaction.withdraw(entity);
   }
 }

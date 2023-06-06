@@ -3,6 +3,7 @@ import { Client } from './Client';
 export enum TransactionType {
   DEPOSIT = 'DEPOSIT',
   WITHDRAW = 'WITHDRAW',
+  TRANSFER = 'TRANSFER',
 }
 
 export class Transaction {

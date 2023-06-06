@@ -54,6 +54,13 @@ export class WalletController {
     };
   }
 
+  @ApiOperation({ summary: 'Find client by id' })
+  @ApiOkResponse({
+    description: 'Client found successfully',
+    type: AppResponse,
+  })
+  @ApiNotFoundResponse({ description: 'Client not found' })
+  @ApiForbiddenResponse({ description: 'Unauthorized request' })
   @Get('/client/:id')
   async findClientById(@Param('id') id: string): Promise<AppResponse> {
     const response = await this.application.findClientById(id);
@@ -82,6 +89,13 @@ export class WalletController {
     };
   }
 
+  @ApiOperation({ summary: 'Find transactions by client id' })
+  @ApiOkResponse({
+    description: 'Transactions found successfully',
+    type: AppResponse,
+  })
+  @ApiNotFoundResponse({ description: 'Transactions not found' })
+  @ApiForbiddenResponse({ description: 'Unauthorized request' })
   @Get('/transactions/:id')
   async findTransactionsByClientId(
     @Param('id') id: string,
@@ -124,16 +138,60 @@ export class WalletController {
   @ApiNotFoundResponse({ description: 'Transaction not made' })
   @ApiForbiddenResponse({ description: 'Unauthorized request' })
   @ApiBody({ type: CreateTransactionRequest, required: true })
-  @Post('/transaction')
+  @Post('/transfer')
   async makeTransaction(
     @Body() request: CreateTransactionRequest,
   ): Promise<AppResponse> {
     Log.info('Making transaction', request);
-    const response = await this.application.makeTransaction(request);
+    const response = await this.application.makeTransfer(request);
 
     return {
       status: 201,
       message: 'Transaction made successfully',
+      data: response,
+    };
+  }
+
+  @ApiOperation({ summary: 'Make a new deposit' })
+  @ApiOkResponse({
+    description: 'Deposit made successfully',
+    type: AppResponse,
+  })
+  @ApiNotFoundResponse({ description: 'Deposit not made' })
+  @ApiForbiddenResponse({ description: 'Unauthorized request' })
+  @ApiBody({ type: CreateTransactionRequest, required: true })
+  @Post('/deposit')
+  async makeDeposit(
+    @Body() request: CreateTransactionRequest,
+  ): Promise<AppResponse> {
+    Log.info('Making deposit', request);
+    const response = await this.application.makeDeposit(request);
+
+    return {
+      status: 201,
+      message: 'Deposit made successfully',
+      data: response,
+    };
+  }
+
+  @ApiOperation({ summary: 'Make a new withdraw' })
+  @ApiOkResponse({
+    description: 'Withdraw made successfully',
+    type: AppResponse,
+  })
+  @ApiNotFoundResponse({ description: 'Withdraw not made' })
+  @ApiForbiddenResponse({ description: 'Unauthorized request' })
+  @ApiBody({ type: CreateTransactionRequest, required: true })
+  @Post('/withdraw')
+  async makeWithdraw(
+    @Body() request: CreateTransactionRequest,
+  ): Promise<AppResponse> {
+    Log.info('Making withdraw', request);
+    const response = await this.application.makeWithdraw(request);
+
+    return {
+      status: 201,
+      message: 'Withdraw made successfully',
       data: response,
     };
   }

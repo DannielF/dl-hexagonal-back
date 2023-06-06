@@ -6,6 +6,8 @@ export interface WalletApplication {
   findTransactionsByClientId(id: string): Promise<Array<Transaction>>;
   findAllClients(): Promise<Array<Client>>;
   findAllTransactions(): Promise<Array<Transaction>>;
-  makeTransaction(newTransaction: NewTransactionDto): Promise<Transaction>;
+  makeTransfer(newTransaction: NewTransactionDto): Promise<Transaction>;
+  makeDeposit(newTransaction: NewTransactionDto): Promise<Transaction>;
+  makeWithdraw(newTransaction: NewTransactionDto): Promise<Transaction>;
   createClient(newClient: NewClientDto): Promise<Client>;
 }
