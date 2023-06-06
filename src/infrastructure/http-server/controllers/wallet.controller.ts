@@ -2,7 +2,11 @@ import { Body, Controller, Inject, Post, UseFilters } from '@nestjs/common';
 import { WalletFilter } from '../exception-filters/wallet-exception.filter';
 import { WalletApplication } from 'src/core/application';
 import { WALLET_APPLICATION } from 'src/core/core.module';
-import { AppResponse, CreateClientRequest } from '../models';
+import {
+  AppResponse,
+  CreateClientRequest,
+  CreateTransactionRequest,
+} from '../models';
 import { Log } from 'src/infrastructure/shared';
 
 @Controller('/wallet')
@@ -22,6 +26,20 @@ export class WalletController {
     return {
       status: 201,
       message: 'Wallet created successfully',
+      data: response,
+    };
+  }
+
+  @Post('/transaction')
+  async makeTransaction(
+    @Body() request: CreateTransactionRequest,
+  ): Promise<AppResponse> {
+    Log.info('Making transaction', request);
+    const response = await this.application.makeTransaction(request);
+
+    return {
+      status: 201,
+      message: 'Transaction made successfully',
       data: response,
     };
   }
