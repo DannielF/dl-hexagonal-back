@@ -16,7 +16,10 @@ import {
 } from '../models';
 import { Log } from 'src/infrastructure/shared';
 
-@Controller('/wallet')
+@Controller({
+  path: '/wallet',
+  version: '1',
+})
 @UseFilters(WalletFilter)
 export class WalletController {
   constructor(
