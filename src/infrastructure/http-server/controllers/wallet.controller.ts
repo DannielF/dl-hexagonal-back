@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Inject,
+  Param,
   Post,
   UseFilters,
 } from '@nestjs/common';
@@ -53,6 +54,16 @@ export class WalletController {
     };
   }
 
+  @Get('/client/:id')
+  async findClientById(@Param('id') id: string): Promise<AppResponse> {
+    const response = await this.application.findClientById(id);
+    return {
+      status: 200,
+      message: 'Client found successfully',
+      data: response,
+    };
+  }
+
   @ApiOperation({ summary: 'Find all transactions' })
   @ApiOkResponse({
     description: 'Transactions found successfully',
@@ -64,6 +75,18 @@ export class WalletController {
   async findAllTransactions(): Promise<AppResponse> {
     Log.info('Finding all transactions');
     const response = await this.application.findAllTransactions();
+    return {
+      status: 200,
+      message: 'Transactions found successfully',
+      data: response,
+    };
+  }
+
+  @Get('/transactions/:id')
+  async findTransactionsByClientId(
+    @Param('id') id: string,
+  ): Promise<AppResponse> {
+    const response = await this.application.findTransactionsByClientId(id);
     return {
       status: 200,
       message: 'Transactions found successfully',

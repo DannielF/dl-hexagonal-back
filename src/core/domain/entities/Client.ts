@@ -15,4 +15,10 @@ export class Client {
     user.transactions = [];
     return user;
   }
+
+  static createWithId(clientId: string) {
+    const user = new Client();
+    user.clientId = clientId;
+    return user;
+  }
 }

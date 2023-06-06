@@ -1,5 +1,5 @@
 import { ClientServiceError } from 'src/core/shared/Error';
-import { Client } from '../entities';
+import { Client, TransactionType } from '../entities';
 import { ClientRepository, ClientService } from '../ports';
 
 export class ClientDomainService implements ClientService {
@@ -28,14 +28,15 @@ export class ClientDomainService implements ClientService {
   async updateBalance(
     id: string,
     balance: number,
-    operation: string,
+    operation: TransactionType,
   ): Promise<void> {
     const userDb = await this.findById(id);
+
     switch (operation) {
-      case 'add':
+      case TransactionType.DEPOSIT:
         userDb.balance += balance;
         break;
-      case 'sub':
+      case TransactionType.WITHDRAW:
         userDb.balance -= balance;
         break;
       default:

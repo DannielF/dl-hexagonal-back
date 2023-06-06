@@ -9,11 +9,11 @@ export class TransactionDomainService implements TransactionService {
     private clientService: ClientDomainService,
   ) {}
 
-  async findById(id: string): Promise<Transaction> {
-    const transaction = await this.repository.findById(id);
-    if (!transaction)
+  async findByClientId(id: string): Promise<Array<Transaction>> {
+    const transactions = await this.repository.findByClientId(id);
+    if (!transactions)
       throw new TransactionServiceError('Transaction not found');
-    return transaction;
+    return transactions;
   }
 
   async findAll(): Promise<Array<Transaction>> {
@@ -25,31 +25,27 @@ export class TransactionDomainService implements TransactionService {
       throw new TransactionServiceError(
         'Sender and receiver cannot be the same',
       );
-    const validation = await this.validateExistClient(transaction);
+    const validation = await this.validateExistClients(transaction);
     if (validation)
       throw new TransactionServiceError('Receiver or sender not found');
 
-    await this.updateClientBalance(
+    await this.clientService.updateBalance(
       transaction.from,
       transaction.quantity,
-      'sub',
+      transaction.type,
     );
-    await this.updateClientBalance(transaction.to, transaction.quantity, 'add');
+    await this.clientService.updateBalance(
+      transaction.to,
+      transaction.quantity,
+      transaction.type,
+    );
 
     return await this.repository.save(transaction);
   }
 
-  async validateExistClient(transaction: Transaction): Promise<boolean> {
+  async validateExistClients(transaction: Transaction): Promise<boolean> {
     const from = await this.clientService.findById(transaction.from);
     const to = await this.clientService.findById(transaction.to);
     if (!from || !to) return false;
-  }
-
-  async updateClientBalance(
-    id: string,
-    balance: number,
-    operation: string,
-  ): Promise<void> {
-    await this.clientService.updateBalance(id, balance, operation);
   }
 }

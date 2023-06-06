@@ -9,6 +9,14 @@ export class WalletApplicationService implements WalletApplication {
     private transaction: TransactionService,
   ) {}
 
+  async findClientById(id: string): Promise<Client> {
+    return await this.client.findById(id);
+  }
+
+  async findTransactionsByClientId(id: string): Promise<Transaction[]> {
+    return await this.transaction.findByClientId(id);
+  }
+
   async findAllClients(): Promise<Client[]> {
     return await this.client.findAll();
   }
@@ -24,12 +32,13 @@ export class WalletApplicationService implements WalletApplication {
   async makeTransaction(
     newTransaction: NewTransactionDto,
   ): Promise<Transaction> {
-    const client = await this.client.findById(newTransaction.from);
+    const client = Client.createWithId(newTransaction.from);
 
     const entity = Transaction.create(
       newTransaction.from,
       newTransaction.to,
       newTransaction.quantity,
+      newTransaction.type,
       client,
     );
     return await this.transaction.save(entity);

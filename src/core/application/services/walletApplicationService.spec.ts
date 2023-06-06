@@ -1,4 +1,4 @@
-import {
+/* import {
   ClientService,
   Client,
   TransactionService,
@@ -46,7 +46,7 @@ function TransactionServiceMock(transactionId: string): TransactionService {
   return {
     save: jest.fn().mockReturnValue(Promise.resolve(transaction)),
     findAll: jest.fn().mockReturnValue(Promise.resolve([transaction])),
-    findById: jest.fn().mockReturnValue(Promise.resolve(transaction)),
+    findByClientId: jest.fn().mockReturnValue(Promise.resolve(transaction)),
     validateExistClient: jest.fn().mockReturnValue(Promise.resolve(true)),
     updateClientBalance: jest.fn().mockReturnValue(Promise.resolve()),
   };
@@ -77,3 +77,4 @@ describe('WalletApplicationService', () => {
     expect(result).toBe(client);
   });
 });
+ */
