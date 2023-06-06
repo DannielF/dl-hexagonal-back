@@ -6,6 +6,11 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "typeorm:cli": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli",
+    "migration:generate": "npm run typeorm:cli migration:generate -- -d src/infrastructure/config/db.source.ts",
+    "migration:create": "npm run typeorm:cli migration:create",
+    "migration:run": "npm run typeorm:cli migration:run -- -d src/infrastructure/config/db.source.ts",
+    "migration:revert": "npm run typeorm:cli migration:revert -- -d src/infrastructure/config/db.source.ts",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "SCOPE=prod nest start",
