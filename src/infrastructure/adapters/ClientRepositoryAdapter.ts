@@ -1,6 +1,6 @@
-import { Client, ClientRepository, Transaction } from 'src/core/domain';
+import { Client, ClientRepository } from 'src/core/domain';
 import { Repository } from 'typeorm';
-import { ClientEntity, TransactionEntity } from '../postgres';
+import { ClientEntity } from '../postgres';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 
