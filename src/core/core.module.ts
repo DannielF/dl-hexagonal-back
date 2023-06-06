@@ -51,13 +51,13 @@ export class CoreModule {
       ) {
         return new TransactionDomainService(repository, client);
       },
-      inject: [transactionRepository, ClientDomainService],
+      inject: [transactionRepository, CLIENT_SERVICE],
     };
 
     return {
       module: CoreModule,
-      imports: [...modules],
       global: true,
+      imports: [...modules],
       providers: [
         WalletApplicationProvider,
         ClientServiceProvider,
