@@ -15,17 +15,33 @@ import {
   CreateTransactionRequest,
 } from '../models';
 import { Log } from 'src/infrastructure/shared';
+import {
+  ApiBody,
+  ApiForbiddenResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @Controller({
   path: '/wallet',
   version: '1',
 })
 @UseFilters(WalletFilter)
+@ApiTags('Wallet')
 export class WalletController {
   constructor(
     @Inject(WALLET_APPLICATION) private application: WalletApplication,
   ) {}
 
+  @ApiOperation({ summary: 'Find all clients' })
+  @ApiOkResponse({
+    description: 'Clients found successfully',
+    type: AppResponse,
+  })
+  @ApiNotFoundResponse({ description: 'Clients not found' })
+  @ApiForbiddenResponse({ description: 'Unauthorized request' })
   @Get('/clients')
   async findAllClients(): Promise<AppResponse> {
     Log.info('Finding all clients');
@@ -37,6 +53,13 @@ export class WalletController {
     };
   }
 
+  @ApiOperation({ summary: 'Find all transactions' })
+  @ApiOkResponse({
+    description: 'Transactions found successfully',
+    type: AppResponse,
+  })
+  @ApiNotFoundResponse({ description: 'Transactions not found' })
+  @ApiForbiddenResponse({ description: 'Unauthorized request' })
   @Get('/transactions')
   async findAllTransactions(): Promise<AppResponse> {
     Log.info('Finding all transactions');
@@ -48,6 +71,14 @@ export class WalletController {
     };
   }
 
+  @ApiOperation({ summary: 'Create a new wallet' })
+  @ApiOkResponse({
+    description: 'Wallet created successfully',
+    type: AppResponse,
+  })
+  @ApiNotFoundResponse({ description: 'Wallet not created' })
+  @ApiForbiddenResponse({ description: 'Unauthorized request' })
+  @ApiBody({ type: CreateClientRequest, required: true })
   @Post()
   async createWallet(
     @Body() request: CreateClientRequest,
@@ -62,6 +93,14 @@ export class WalletController {
     };
   }
 
+  @ApiOperation({ summary: 'Make a new transaction' })
+  @ApiOkResponse({
+    description: 'Transaction made successfully',
+    type: AppResponse,
+  })
+  @ApiNotFoundResponse({ description: 'Transaction not made' })
+  @ApiForbiddenResponse({ description: 'Unauthorized request' })
+  @ApiBody({ type: CreateTransactionRequest, required: true })
   @Post('/transaction')
   async makeTransaction(
     @Body() request: CreateTransactionRequest,

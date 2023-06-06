@@ -1,4 +1,4 @@
-export interface AppResponse {
+export class AppResponse {
   status: number;
   message: string;
   data?: any;
