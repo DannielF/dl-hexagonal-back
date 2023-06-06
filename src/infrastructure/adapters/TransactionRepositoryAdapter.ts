@@ -8,14 +8,14 @@ export class TransactionRepositoryAdapter implements TransactionRepository {
     @InjectRepository(TransactionEntity)
     private repository: Repository<TransactionEntity>,
   ) {}
-
-  async findById(id: string): Promise<Transaction> {
-    return await this.repository.findOne({
-      relations: {
-        client: true,
-      },
+  async findByClientId(id: string): Promise<Transaction[]> {
+    return await this.repository.find({
       where: {
-        transactionId: id,
+        from: id,
+        to: id,
+      },
+      order: {
+        date: 'DESC',
       },
     });
   }

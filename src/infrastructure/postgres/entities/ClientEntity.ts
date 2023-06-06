@@ -15,6 +15,9 @@ export class ClientEntity {
   @Column({ name: 'balance', type: 'int' })
   balance: number;
 
-  @OneToMany(() => TransactionEntity, (transaction) => transaction.client)
+  @OneToMany(() => TransactionEntity, (transaction) => transaction.client, {
+    onDelete: 'RESTRICT',
+    onUpdate: 'RESTRICT',
+  })
   transactions: Array<TransactionEntity>;
 }

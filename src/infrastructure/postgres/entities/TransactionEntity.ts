@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ClientEntity } from './ClientEntity';
+import { TransactionType } from 'src/core/domain';
 
 @Entity({ name: 'transactions' })
 export class TransactionEntity {
@@ -21,10 +22,20 @@ export class TransactionEntity {
   @Column({ name: 'quantity', type: 'int' })
   quantity: number;
 
-  @Column({ name: 'date', type: 'timestamp' })
+  @Column({
+    name: 'date',
+    type: 'timestamp without time zone',
+    default: 'now()',
+  })
   date: Date;
 
-  @ManyToOne(() => ClientEntity)
-  @JoinColumn({ name: 'client_id' })
+  @Column({ name: 'transaction_type', type: 'enum', enum: TransactionType })
+  type: TransactionType;
+
+  @ManyToOne(() => ClientEntity, {
+    onDelete: 'RESTRICT',
+    onUpdate: 'RESTRICT',
+  })
+  @JoinColumn({ name: 'client_id', referencedColumnName: 'clientId' })
   client: ClientEntity;
 }
