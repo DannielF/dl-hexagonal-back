@@ -24,10 +24,13 @@ export class WalletApplicationService implements WalletApplication {
   async makeTransaction(
     newTransaction: NewTransactionDto,
   ): Promise<Transaction> {
+    const client = await this.client.findById(newTransaction.from);
+
     const entity = Transaction.create(
       newTransaction.from,
       newTransaction.to,
       newTransaction.quantity,
+      client,
     );
     return await this.transaction.save(entity);
   }
