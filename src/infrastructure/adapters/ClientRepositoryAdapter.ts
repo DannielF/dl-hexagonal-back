@@ -13,18 +13,16 @@ export class ClientRepositoryAdapter implements ClientRepository {
 
   async findById(id: string): Promise<Client> {
     return await this.repository.findOne({
+      relations: {
+        transactions: true,
+      },
       where: {
         clientId: id,
       },
     });
   }
   async findAll(): Promise<Client[]> {
-    return await this.repository.find({
-      relations: {
-        transactions: true,
-      },
-      loadRelationIds: true,
-    });
+    return await this.repository.find();
   }
 
   async save(user: Client): Promise<Client> {

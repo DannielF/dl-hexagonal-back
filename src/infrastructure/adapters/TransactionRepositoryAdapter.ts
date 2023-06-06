@@ -11,6 +11,9 @@ export class TransactionRepositoryAdapter implements TransactionRepository {
 
   async findById(id: string): Promise<Transaction> {
     return await this.repository.findOne({
+      relations: {
+        client: true,
+      },
       where: {
         transactionId: id,
       },
@@ -19,10 +22,6 @@ export class TransactionRepositoryAdapter implements TransactionRepository {
 
   async findAll(): Promise<Transaction[]> {
     return await this.repository.find({
-      relations: {
-        client: true,
-      },
-      loadRelationIds: true,
       order: {
         date: 'DESC',
       },
