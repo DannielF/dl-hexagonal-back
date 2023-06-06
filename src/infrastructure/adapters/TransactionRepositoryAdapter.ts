@@ -19,7 +19,10 @@ export class TransactionRepositoryAdapter implements TransactionRepository {
 
   async findAll(): Promise<Transaction[]> {
     return await this.repository.find({
-      relations: ['client'],
+      relations: {
+        client: true,
+      },
+      loadRelationIds: true,
     });
   }
 

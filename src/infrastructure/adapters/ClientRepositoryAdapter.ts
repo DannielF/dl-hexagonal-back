@@ -1,6 +1,6 @@
-import { Client, ClientRepository } from 'src/core/domain';
+import { Client, ClientRepository, Transaction } from 'src/core/domain';
 import { Repository } from 'typeorm';
-import { ClientEntity } from '../postgres';
+import { ClientEntity, TransactionEntity } from '../postgres';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 
@@ -20,9 +20,13 @@ export class ClientRepositoryAdapter implements ClientRepository {
   }
   async findAll(): Promise<Client[]> {
     return await this.repository.find({
-      relations: ['transactions'],
+      relations: {
+        transactions: true,
+      },
+      loadRelationIds: true,
     });
   }
+
   async save(user: Client): Promise<Client> {
     return await this.repository.save(user);
   }
