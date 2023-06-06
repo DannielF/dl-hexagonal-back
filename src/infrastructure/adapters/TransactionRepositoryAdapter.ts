@@ -18,7 +18,9 @@ export class TransactionRepositoryAdapter implements TransactionRepository {
   }
 
   async findAll(): Promise<Transaction[]> {
-    return await this.repository.find();
+    return await this.repository.find({
+      relations: ['client'],
+    });
   }
 
   async save(transaction: Transaction): Promise<Transaction> {

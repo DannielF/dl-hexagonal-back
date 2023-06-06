@@ -19,7 +19,9 @@ export class ClientRepositoryAdapter implements ClientRepository {
     });
   }
   async findAll(): Promise<Client[]> {
-    return await this.repository.find();
+    return await this.repository.find({
+      relations: ['transactions'],
+    });
   }
   async save(user: Client): Promise<Client> {
     return await this.repository.save(user);
