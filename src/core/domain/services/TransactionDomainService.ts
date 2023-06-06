@@ -21,6 +21,10 @@ export class TransactionDomainService implements TransactionService {
   }
 
   async save(transaction: Transaction): Promise<Transaction> {
+    if (transaction.from === transaction.to)
+      throw new TransactionServiceError(
+        'Sender and receiver cannot be the same',
+      );
     const validation = await this.validateExistClient(transaction);
     if (validation)
       throw new TransactionServiceError('Receiver or sender not found');
