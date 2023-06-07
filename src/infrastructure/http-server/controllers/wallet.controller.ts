@@ -24,6 +24,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
+import { from } from 'rxjs';
 
 /**
  * @description Controller for wallet endpoint
@@ -53,11 +54,7 @@ export class WalletController {
   async findAllClients(): Promise<AppResponse> {
     Log.info('Finding all clients');
     const response = await this.application.findAllClients();
-    return {
-      status: 200,
-      message: 'Clients found successfully',
-      data: response,
-    };
+    return AppResponse.create(200, 'Clients found successfully', response);
   }
 
   @ApiOperation({ summary: 'Find client by id' })
@@ -70,11 +67,7 @@ export class WalletController {
   @Get('/client/:id')
   async findClientById(@Param('id') id: string): Promise<AppResponse> {
     const response = await this.application.findClientById(id);
-    return {
-      status: 200,
-      message: 'Client found successfully',
-      data: response,
-    };
+    return AppResponse.create(200, 'Client found successfully', response);
   }
 
   @ApiOperation({ summary: 'Find all transactions' })
@@ -88,11 +81,7 @@ export class WalletController {
   async findAllTransactions(): Promise<AppResponse> {
     Log.info('Finding all transactions');
     const response = await this.application.findAllTransactions();
-    return {
-      status: 200,
-      message: 'Transactions found successfully',
-      data: response,
-    };
+    return AppResponse.create(200, 'Transactions found successfully', response);
   }
 
   @ApiOperation({ summary: 'Find transactions by client id' })
@@ -107,11 +96,7 @@ export class WalletController {
     @Param('id') id: string,
   ): Promise<AppResponse> {
     const response = await this.application.findTransactionsByClientId(id);
-    return {
-      status: 200,
-      message: 'Transactions found successfully',
-      data: response,
-    };
+    return AppResponse.create(200, 'Transactions found successfully', response);
   }
 
   @ApiOperation({ summary: 'Create a new wallet' })
@@ -129,11 +114,7 @@ export class WalletController {
     Log.info('Creating wallet', request);
     const response = await this.application.createClient(request);
 
-    return {
-      status: 201,
-      message: 'Wallet created successfully',
-      data: response,
-    };
+    return AppResponse.create(201, 'Wallet created successfully', response);
   }
 
   @ApiOperation({ summary: 'Make a new transaction' })
@@ -150,17 +131,7 @@ export class WalletController {
   ): Promise<AppResponse> {
     Log.info('Making transaction', request);
     const response = await this.application.makeTransfer(request);
-
-    return {
-      status: 201,
-      message: 'Transaction made successfully',
-      data: {
-        type: response.type,
-        quantity: response.quantity,
-        date: response.date,
-        transactionId: response.transactionId,
-      },
-    };
+    return AppResponse.create(201, 'Transfer made successfully', response);
   }
 
   @ApiOperation({ summary: 'Make a new deposit' })
@@ -177,16 +148,7 @@ export class WalletController {
   ): Promise<AppResponse> {
     Log.info('Making deposit', request);
     const response = await this.application.makeDeposit(request);
-
-    return {
-      status: 201,
-      message: 'Deposit made successfully',
-      data: {
-        type: response.type,
-        quantity: response.quantity,
-        date: response.date,
-      },
-    };
+    return AppResponse.create(201, 'Deposit made successfully', response);
   }
 
   @ApiOperation({ summary: 'Make a new withdraw' })
@@ -203,15 +165,6 @@ export class WalletController {
   ): Promise<AppResponse> {
     Log.info('Making withdraw', request);
     const response = await this.application.makeWithdraw(request);
-
-    return {
-      status: 201,
-      message: 'Withdraw made successfully',
-      data: {
-        type: response.type,
-        quantity: response.quantity,
-        date: response.date,
-      },
-    };
+    return AppResponse.create(201, 'Withdraw made successfully', response);
   }
 }

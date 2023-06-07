@@ -13,4 +13,12 @@ export class AppResponse {
   message: string;
   @ApiProperty({ example: [], type: Object })
   data?: any;
+
+  static create(status: number, message: string, data?: any): AppResponse {
+    const response = new AppResponse();
+    response.status = status;
+    response.message = message;
+    response.data = data;
+    return response;
+  }
 }
