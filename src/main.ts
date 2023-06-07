@@ -22,6 +22,8 @@ async function bootstrap(): Promise<void> {
     }),
   );
 
+  app.useGlobalFilters();
+
   app.enableCors({
     origin: [
       'http://localhost:3000',
