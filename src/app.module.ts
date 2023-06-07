@@ -16,6 +16,7 @@ import {
         'environments',
         `.env.${process.env.SCOPE}`,
       ),
+      cache: true,
       isGlobal: true,
     }),
     CoreModule.register({
