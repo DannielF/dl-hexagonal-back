@@ -11,6 +11,12 @@ import { WalletFilter } from 'src/infrastructure/http-server/exception-filters/w
 import { ClientEntity, TransactionEntity } from 'src/infrastructure/postgres';
 import { Log } from 'src/infrastructure/shared';
 
+/**
+ * @description WalletResolver class for graphql resolver
+ * @author dannielf
+ * @export
+ * @class WalletResolver
+ */
 @Resolver()
 @UseFilters(WalletFilter)
 export class WalletResolver {

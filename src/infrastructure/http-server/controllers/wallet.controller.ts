@@ -14,7 +14,7 @@ import {
   AppResponse,
   CreateClientRequest,
   CreateTransactionRequest,
-} from '../models';
+} from '../../shared/models';
 import { Log } from 'src/infrastructure/shared';
 import {
   ApiBody,
