@@ -148,7 +148,12 @@ export class WalletController {
     return {
       status: 201,
       message: 'Transaction made successfully',
-      data: response,
+      data: {
+        type: response.type,
+        quantity: response.quantity,
+        date: response.date,
+        transactionId: response.transactionId,
+      },
     };
   }
 

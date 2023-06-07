@@ -19,6 +19,11 @@ export class ClientRepositoryAdapter implements ClientRepository {
       where: {
         clientId: id,
       },
+      order: {
+        transactions: {
+          date: 'DESC',
+        },
+      },
     });
   }
   async findAll(): Promise<Client[]> {
