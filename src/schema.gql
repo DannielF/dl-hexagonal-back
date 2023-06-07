@@ -1,0 +1,83 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""TransactionEntity model class"""
+type TransactionEntity {
+  transactionId: ID!
+
+  """fromClient"""
+  from: String!
+
+  """toClient"""
+  to: String!
+
+  """quantity"""
+  quantity: Float!
+
+  """date"""
+  date: DateTime!
+
+  """type"""
+  type: String!
+
+  """client"""
+  client: ClientEntity!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type ClientEntity {
+  clientId: ID!
+
+  """email"""
+  email: String!
+
+  """password"""
+  password: String!
+
+  """balance"""
+  balance: Float!
+
+  """transactions"""
+  transactions: [TransactionEntity!]!
+}
+
+type Query {
+  findAllClients: [ClientEntity!]!
+  findAllTransactions: [TransactionEntity!]!
+  findClientById(id: String!): ClientEntity!
+  findTransactionsByClient(id: String!): [TransactionEntity!]!
+}
+
+type Mutation {
+  createWallet(client: CreateClientRequest!): ClientEntity!
+  makeTransfer(transaction: CreateTransactionRequest!): TransactionEntity!
+  makeDeposit(transaction: CreateTransactionRequest!): TransactionEntity!
+  makeWithdraw(transaction: CreateTransactionRequest!): TransactionEntity!
+}
+
+input CreateClientRequest {
+  """email"""
+  email: String!
+
+  """password"""
+  password: String!
+}
+
+input CreateTransactionRequest {
+  """fromClient"""
+  from: String!
+
+  """toClient"""
+  to: String!
+
+  """quantity"""
+  quantity: Int!
+
+  """transaction type"""
+  type: String!
+}
