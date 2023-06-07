@@ -4,6 +4,10 @@ import {
   SwaggerCustomOptions,
 } from '@nestjs/swagger';
 
+/**
+ * @description Swagger configuration file
+ * @export
+ */
 export const config = new DocumentBuilder()
   .setTitle('Wallet API')
   .setDescription('Wallet API description')

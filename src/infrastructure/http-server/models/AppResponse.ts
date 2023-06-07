@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+/**
+ * @description AppResponse model class
+ * @author dannielf
+ * @export
+ * @class AppResponse
+ */
 export class AppResponse {
   @ApiProperty({ example: 200, type: Number })
   status: number;

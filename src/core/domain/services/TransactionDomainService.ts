@@ -3,6 +3,13 @@ import { Transaction, TransactionType } from '../entities';
 import { TransactionRepository, TransactionService } from '../ports';
 import { ClientDomainService } from './ClientDomainService';
 
+/**
+ * @description Transaction domain service implementation
+ * @author dannielf
+ * @export
+ * @class TransactionDomainService
+ * @implements {TransactionService}
+ */
 export class TransactionDomainService implements TransactionService {
   constructor(
     private repository: TransactionRepository,

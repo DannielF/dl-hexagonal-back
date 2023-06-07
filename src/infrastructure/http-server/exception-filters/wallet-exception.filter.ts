@@ -8,6 +8,13 @@ import {
 import { Response, Request } from 'express';
 import { ApplicationError } from 'src/core/shared';
 
+/**
+ * @description Filter for wallet controller exceptions
+ * @author dannielf
+ * @export
+ * @class WalletFilter
+ * @implements {ExceptionFilter}
+ */
 @Catch(ApplicationError)
 export class WalletFilter implements ExceptionFilter {
   catch(exception: ApplicationError, host: ArgumentsHost) {

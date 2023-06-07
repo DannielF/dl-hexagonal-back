@@ -1,11 +1,23 @@
 import { Client } from './Client';
 
+/**
+ * @description Transaction types enum
+ * @author dannielf
+ * @export
+ * @enum {number}
+ */
 export enum TransactionType {
   DEPOSIT = 'DEPOSIT',
   WITHDRAW = 'WITHDRAW',
   TRANSFER = 'TRANSFER',
 }
 
+/**
+ * @description Transaction entity
+ * @author dannielf
+ * @export
+ * @class Transaction
+ */
 export class Transaction {
   transactionId: string;
   date: Date;

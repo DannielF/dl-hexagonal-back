@@ -25,6 +25,12 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+/**
+ * @description Controller for wallet endpoint
+ * @author dannielf
+ * @export
+ * @class WalletController
+ */
 @ApiTags('Wallet')
 @Controller({
   path: '/wallet',

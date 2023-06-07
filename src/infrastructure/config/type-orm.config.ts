@@ -7,6 +7,10 @@ import databaseConfig from './db.config';
 
 export const typeOrmConfig: TypeOrmModuleOptions = databaseConfig;
 
+/**
+ * @description typeormAsync configuration
+ * @export
+ */
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],
   inject: [ConfigService],

@@ -1,5 +1,9 @@
 import { Logger } from '@nestjs/common';
 
+/**
+ * @description Log class for logging messages and objects in console
+ * @export
+ */
 export class Log {
   static info(msg: string, foo?: any) {
     const json = foo ? `\n${JSON.stringify(foo, null, 2)}` : '';

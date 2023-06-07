@@ -8,6 +8,12 @@ import {
 import { ClientEntity } from './ClientEntity';
 import { TransactionType } from 'src/core/domain';
 
+/**
+ * @description TransactionEntity model class
+ * @author dannielf
+ * @export
+ * @class TransactionEntity
+ */
 @Entity({ name: 'transactions' })
 export class TransactionEntity {
   @PrimaryGeneratedColumn('uuid', { name: 'transaction_id' })

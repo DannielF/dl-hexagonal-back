@@ -1,6 +1,12 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { TransactionEntity } from './TransactionEntity';
 
+/**
+ * @description ClientEntity model class
+ * @author dannielf
+ * @export
+ * @class ClientEntity
+ */
 @Entity({ name: 'clients' })
 export class ClientEntity {
   @PrimaryGeneratedColumn('uuid', { name: 'client_id' })

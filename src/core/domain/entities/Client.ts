@@ -1,5 +1,11 @@
 import { Transaction } from './Transaction';
 
+/**
+ * @description Client entity
+ * @author dannielf
+ * @export
+ * @class Client
+ */
 export class Client {
   clientId: string;
   email: string;

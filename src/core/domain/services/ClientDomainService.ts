@@ -2,6 +2,13 @@ import { ClientServiceError } from 'src/core/shared/Error';
 import { Client, TransactionType } from '../entities';
 import { ClientRepository, ClientService } from '../ports';
 
+/**
+ * @description Client domain service implementation
+ * @author dannielf
+ * @export
+ * @class ClientDomainService
+ * @implements {ClientService}
+ */
 export class ClientDomainService implements ClientService {
   constructor(private repository: ClientRepository) {}
 

@@ -1,5 +1,11 @@
 import { Client } from '../../entities';
 
+/**
+ * @description Client service interface
+ * @author dannielf
+ * @export
+ * @interface ClientService
+ */
 export interface ClientService {
   findById(id: string): Promise<Client>;
   findAll(): Promise<Array<Client>>;

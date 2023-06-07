@@ -2,6 +2,12 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsInt, IsPositive, IsString, IsUUID } from 'class-validator';
 import { TransactionType } from 'src/core/domain';
 
+/**
+ * @description CreateTransactionRequest model class
+ * @author dannielf
+ * @export
+ * @class CreateTransactionRequest
+ */
 export class CreateTransactionRequest {
   @IsString()
   @IsUUID()

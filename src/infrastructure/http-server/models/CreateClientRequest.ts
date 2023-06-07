@@ -1,6 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
+/**
+ * @description CreateClientRequest model class
+ * @author dannielf
+ * @export
+ * @class CreateClientRequest
+ */
 export class CreateClientRequest {
   @IsString()
   @IsEmail()

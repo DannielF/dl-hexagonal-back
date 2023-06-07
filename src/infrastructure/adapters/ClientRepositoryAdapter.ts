@@ -4,6 +4,13 @@ import { ClientEntity } from '../postgres';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 
+/**
+ * @description Adapter for ClientRepository
+ * @author dannielf
+ * @export
+ * @class ClientRepositoryAdapter
+ * @implements {ClientRepository}
+ */
 @Injectable()
 export class ClientRepositoryAdapter implements ClientRepository {
   constructor(

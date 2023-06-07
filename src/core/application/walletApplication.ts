@@ -1,6 +1,12 @@
 import { Client, Transaction } from '../domain/entities';
 import { NewClientDto, NewTransactionDto } from '../shared';
 
+/**
+ * @description Wallet application interface
+ * @author dannielf
+ * @export
+ * @interface WalletApplication
+ */
 export interface WalletApplication {
   findClientById(id: string): Promise<Client>;
   findTransactionsByClientId(id: string): Promise<Array<Transaction>>;

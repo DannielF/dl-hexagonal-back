@@ -1,5 +1,11 @@
 import { Transaction } from '../../entities';
 
+/**
+ * @description Transaction service interface
+ * @author dannielf
+ * @export
+ * @interface TransactionService
+ */
 export interface TransactionService {
   findByClientId(id: string): Promise<Array<Transaction>>;
   findAll(): Promise<Array<Transaction>>;

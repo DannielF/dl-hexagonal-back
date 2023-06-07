@@ -3,6 +3,13 @@ import { NewClientDto, NewTransactionDto } from 'src/core/shared';
 import { WalletApplication } from '../walletApplication';
 import { ClientService, TransactionService } from 'src/core/domain';
 
+/**
+ * @description Wallet application service implementation
+ * @author dannielf
+ * @export
+ * @class WalletApplicationService
+ * @implements {WalletApplication}
+ */
 export class WalletApplicationService implements WalletApplication {
   constructor(
     private client: ClientService,
