@@ -25,12 +25,12 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+@ApiTags('Wallet')
 @Controller({
   path: '/wallet',
   version: '1',
 })
 @UseFilters(WalletFilter)
-@ApiTags('Wallet')
 export class WalletController {
   constructor(
     @Inject(WALLET_APPLICATION) private application: WalletApplication,
@@ -170,7 +170,11 @@ export class WalletController {
     return {
       status: 201,
       message: 'Deposit made successfully',
-      data: response,
+      data: {
+        type: response.type,
+        quantity: response.quantity,
+        date: response.date,
+      },
     };
   }
 
@@ -192,7 +196,11 @@ export class WalletController {
     return {
       status: 201,
       message: 'Withdraw made successfully',
-      data: response,
+      data: {
+        type: response.type,
+        quantity: response.quantity,
+        date: response.date,
+      },
     };
   }
 }
