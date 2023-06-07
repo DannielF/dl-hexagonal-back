@@ -81,6 +81,7 @@ export class TransactionDomainService implements TransactionService {
       const to = await this.clientService.findById(transaction.to);
       if (!from || !to) return false;
     }
-    return (await this.clientService.findById(transaction.from)) ? true : false;
+    const client = await this.clientService.findById(transaction.from);
+    if (!client) return false;
   }
 }

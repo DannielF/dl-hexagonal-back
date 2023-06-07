@@ -10,10 +10,7 @@ export class TransactionRepositoryAdapter implements TransactionRepository {
   ) {}
   async findByClientId(id: string): Promise<Transaction[]> {
     return await this.repository.find({
-      where: {
-        from: id,
-        to: id,
-      },
+      where: [{ from: id }, { to: id }],
       order: {
         date: 'DESC',
       },
