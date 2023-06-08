@@ -1,5 +1,9 @@
 import { Client, Transaction } from 'src/core/domain/entities';
-import { NewClientDto, NewTransactionDto } from 'src/core/shared';
+import {
+  ApplicationError,
+  NewClientDto,
+  NewTransactionDto,
+} from 'src/core/shared';
 import { WalletApplication } from '../walletApplication';
 import { ClientService, TransactionService } from 'src/core/domain';
 
@@ -17,11 +21,16 @@ export class WalletApplicationService implements WalletApplication {
   ) {}
 
   async findClientById(id: string): Promise<Client> {
-    return await this.client.findById(id);
+    const client = await this.client.findById(id);
+    if (!client) throw new ApplicationError('Client not found');
+    return client;
   }
 
   async findTransactionsByClientId(id: string): Promise<Transaction[]> {
-    return await this.transaction.findByClientId(id);
+    const transactions = await this.transaction.findByClientId(id);
+    if (!transactions)
+      throw new ApplicationError('Transactions not found for this client');
+    return transactions;
   }
 
   async findAllClients(): Promise<Client[]> {
