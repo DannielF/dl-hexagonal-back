@@ -23,6 +23,7 @@ describe('TransactionDomainService', () => {
             transfer: jest.fn(() => transaction),
             deposit: jest.fn(() => transaction),
             withdraw: jest.fn(() => transaction),
+            validateExistClients: jest.fn(() => true),
           },
         },
       ],
@@ -49,5 +50,15 @@ describe('TransactionDomainService', () => {
     await transactionDomainService.deposit(transaction);
     // Assert
     expect(transactionDomainService.deposit).toBeCalled();
+  });
+
+  it('should return true if clients exists', async () => {
+    // Act
+    const result = await transactionDomainService.validateExistClients(
+      transaction,
+    );
+    // Assert
+    expect(transactionDomainService.validateExistClients).toBeCalled();
+    expect(result).toEqual(true);
   });
 });
