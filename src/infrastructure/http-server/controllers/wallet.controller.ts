@@ -15,9 +15,9 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { WalletApplication } from 'src/core/application';
-import { WALLET_APPLICATION } from 'src/core/core.module';
-import { Log } from 'src/infrastructure/shared';
+import { WalletApplication } from '../../../core/application';
+import { WALLET_APPLICATION } from '../../../core/core.module';
+import { Log } from '../../../infrastructure/shared';
 import {
   AppResponse,
   CreateClientRequest,
