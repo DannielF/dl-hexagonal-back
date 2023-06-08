@@ -1,2 +1,2 @@
 export * from './controllers';
-export * from '../shared/models';
+export * from './exception-filters';

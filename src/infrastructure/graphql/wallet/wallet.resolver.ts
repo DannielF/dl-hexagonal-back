@@ -3,13 +3,13 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { WalletApplication } from 'src/core/application';
 import { WALLET_APPLICATION } from 'src/core/core.module';
 import { Client, Transaction } from 'src/core/domain';
-import {
-  CreateClientRequest,
-  CreateTransactionRequest,
-} from 'src/infrastructure/http-server';
 import { WalletFilter } from 'src/infrastructure/http-server/exception-filters/wallet-exception.filter';
 import { ClientEntity, TransactionEntity } from 'src/infrastructure/postgres';
 import { Log } from 'src/infrastructure/shared';
+import {
+  CreateClientRequest,
+  CreateTransactionRequest,
+} from 'src/infrastructure/shared/models';
 
 /**
  * @description WalletResolver class for graphql resolver

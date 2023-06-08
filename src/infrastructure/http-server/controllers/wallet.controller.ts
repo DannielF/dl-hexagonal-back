@@ -7,15 +7,6 @@ import {
   Post,
   UseFilters,
 } from '@nestjs/common';
-import { WalletFilter } from '../exception-filters/wallet-exception.filter';
-import { WalletApplication } from 'src/core/application';
-import { WALLET_APPLICATION } from 'src/core/core.module';
-import {
-  AppResponse,
-  CreateClientRequest,
-  CreateTransactionRequest,
-} from '../../shared/models';
-import { Log } from 'src/infrastructure/shared';
 import {
   ApiBody,
   ApiForbiddenResponse,
@@ -24,7 +15,15 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { from } from 'rxjs';
+import { WalletApplication } from 'src/core/application';
+import { WALLET_APPLICATION } from 'src/core/core.module';
+import { Log } from 'src/infrastructure/shared';
+import {
+  AppResponse,
+  CreateClientRequest,
+  CreateTransactionRequest,
+} from '../../shared/models';
+import { AllExceptionsFilter, WalletFilter } from '../exception-filters';
 
 /**
  * @description Controller for wallet endpoint
@@ -37,7 +36,7 @@ import { from } from 'rxjs';
   path: '/wallet',
   version: '1',
 })
-@UseFilters(WalletFilter)
+@UseFilters(WalletFilter, AllExceptionsFilter)
 export class WalletController {
   constructor(
     @Inject(WALLET_APPLICATION) private application: WalletApplication,
