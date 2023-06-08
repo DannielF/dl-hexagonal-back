@@ -1,7 +1,7 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsInt, IsPositive, IsString, IsUUID } from 'class-validator';
-import { TransactionType } from 'src/core/domain';
+import { TransactionType } from '../../../core/domain';
 
 /**
  * @description CreateTransactionRequest model class

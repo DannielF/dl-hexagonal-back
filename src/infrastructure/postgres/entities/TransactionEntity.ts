@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ClientEntity } from './ClientEntity';
-import { TransactionType } from 'src/core/domain';
+import { TransactionType } from '../../../core/domain';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
 /**

@@ -6,7 +6,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Response, Request } from 'express';
-import { ApplicationError } from 'src/core/shared';
+import { ApplicationError } from '../../../core/shared';
 
 /**
  * @description Filter for wallet controller exceptions

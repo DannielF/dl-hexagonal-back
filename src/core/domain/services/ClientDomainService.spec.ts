@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing';
-import { Client } from '../entities';
+import { Client, TransactionType } from '../entities';
 import { ClientDomainService } from './ClientDomainService';
 
 const client = {
@@ -14,7 +14,7 @@ const clientUpdated = {
   clientId: client.clientId,
   email: 'doe@email.com',
   password: client.password,
-  balance: client.balance,
+  balance: 1200,
   transactions: client.transactions,
 } as Client;
 
@@ -32,6 +32,7 @@ describe('ClientDomainService', () => {
             save: jest.fn(() => client),
             update: jest.fn(() => clientUpdated),
             delete: jest.fn(() => client),
+            updateBalance: jest.fn(() => clientUpdated),
           },
         },
       ],
@@ -78,5 +79,17 @@ describe('ClientDomainService', () => {
     // Assert
     expect(clientDomainService.findAll).toBeCalled();
     expect(result).toEqual([client]);
+  });
+
+  it('should update balance - deposit', async () => {
+    // Act
+    const result = await clientDomainService.updateBalance(
+      client.clientId,
+      clientUpdated.balance,
+      TransactionType.DEPOSIT,
+    );
+    // Assert
+    expect(clientDomainService.updateBalance).toBeCalled();
+    expect(result).toEqual(clientUpdated);
   });
 });

@@ -1,15 +1,18 @@
 import { Inject, UseFilters } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { WalletApplication } from 'src/core/application';
-import { WALLET_APPLICATION } from 'src/core/core.module';
-import { Client, Transaction } from 'src/core/domain';
-import { WalletFilter } from 'src/infrastructure/http-server/exception-filters/wallet-exception.filter';
-import { ClientEntity, TransactionEntity } from 'src/infrastructure/postgres';
-import { Log } from 'src/infrastructure/shared';
+import { WalletApplication } from '../../../core/application';
+import { WALLET_APPLICATION } from '../../../core/core.module';
+import { Client, Transaction } from '../../../core/domain';
+import { WalletFilter } from '../../../infrastructure/http-server/exception-filters/wallet-exception.filter';
+import {
+  ClientEntity,
+  TransactionEntity,
+} from '../../../infrastructure/postgres';
+import { Log } from '../../../infrastructure/shared';
 import {
   CreateClientRequest,
   CreateTransactionRequest,
-} from 'src/infrastructure/shared/models';
+} from '../../../infrastructure/shared/models';
 
 /**
  * @description WalletResolver class for graphql resolver
@@ -46,7 +49,7 @@ export class WalletResolver {
   async findTransactionsByClient(
     @Args('id') id: string,
   ): Promise<Transaction[]> {
-    Log.info('Finding transaction by id');
+    Log.info('Finding transactions by client');
     return await this.application.findTransactionsByClientId(id);
   }
 
