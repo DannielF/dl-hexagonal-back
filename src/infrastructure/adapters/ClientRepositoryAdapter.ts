@@ -1,8 +1,8 @@
-import { Client, ClientRepository } from 'src/core/domain';
-import { Repository } from 'typeorm';
-import { ClientEntity } from '../postgres';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Client, ClientRepository } from '../../core/domain';
+import { ClientEntity } from '../postgres';
 
 /**
  * @description Adapter for ClientRepository

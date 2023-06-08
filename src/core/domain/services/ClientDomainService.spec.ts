@@ -27,17 +27,19 @@ describe('ClientDomainService', () => {
         {
           provide: ClientDomainService,
           useValue: {
-            findAll: jest.fn(() => [client]),
             findById: jest.fn(() => client),
+            findAll: jest.fn(() => [client]),
             save: jest.fn(() => client),
             update: jest.fn(() => clientUpdated),
-            delete: jest.fn(() => client),
             updateBalance: jest.fn(() => clientUpdated),
+            delete: jest.fn(() => true),
           },
         },
       ],
     }).compile();
-    clientDomainService = await moduleRef.resolve(ClientDomainService);
+    clientDomainService = await moduleRef.resolve<ClientDomainService>(
+      ClientDomainService,
+    );
   });
 
   it('should be defined', () => {
@@ -46,23 +48,29 @@ describe('ClientDomainService', () => {
 
   it('should create a new client', async () => {
     // Act
-    await clientDomainService.save(client);
+    const result = await clientDomainService.save(client);
     // Assert
     expect(clientDomainService.save).toBeCalled();
+    expect(result).toEqual(client);
   });
 
   it('should update a client', async () => {
     // Act
-    await clientDomainService.update(client.clientId, clientUpdated);
+    const result = await clientDomainService.update(
+      client.clientId,
+      clientUpdated,
+    );
     // Assert
     expect(clientDomainService.update).toBeCalled();
+    expect(result).toEqual(clientUpdated);
   });
 
   it('should delete a client', async () => {
     // Act
-    await clientDomainService.delete(client.clientId);
+    const result = await clientDomainService.delete(client.clientId);
     // Assert
     expect(clientDomainService.delete).toBeCalled();
+    expect(result).toBe(true);
   });
 
   it('should find a client by id', async () => {

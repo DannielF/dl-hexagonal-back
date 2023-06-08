@@ -3,9 +3,10 @@ import { Transaction } from '../entities';
 import { TransactionDomainService } from './TransactionDomainService';
 
 const transaction = {
-  from: '1135809c-44dd-43f0-a2d9-e533620c8419',
-  to: '83762d50-f532-46c9-bcfa-5edf6f1b980a',
+  from: '1',
+  to: '8',
   quantity: 100,
+  date: new Date(),
   type: 'TRANSFER',
 } as Transaction;
 
@@ -39,17 +40,27 @@ describe('TransactionDomainService', () => {
 
   it('should create a new transfer', async () => {
     // Act
-    await transactionDomainService.transfer(transaction);
+    const result = await transactionDomainService.transfer(transaction);
     // Assert
     expect(transactionDomainService.transfer).toBeCalled();
     expect(transactionDomainService.transfer).toBeCalledWith(transaction);
+    expect(result).toEqual(transaction);
   });
 
   it('should create a new deposit', async () => {
     // Act
-    await transactionDomainService.deposit(transaction);
+    const result = await transactionDomainService.deposit(transaction);
     // Assert
     expect(transactionDomainService.deposit).toBeCalled();
+    expect(result).toEqual(transaction);
+  });
+
+  it('should create a new withdraw', async () => {
+    // Act
+    const result = await transactionDomainService.withdraw(transaction);
+    // Assert
+    expect(transactionDomainService.withdraw).toBeCalled();
+    expect(result).toEqual(transaction);
   });
 
   it('should return true if clients exists', async () => {
