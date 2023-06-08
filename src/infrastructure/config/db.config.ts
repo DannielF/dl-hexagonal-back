@@ -1,10 +1,12 @@
 import { DataSourceOptions } from 'typeorm';
-import * as dotenv from 'dotenv';
-dotenv.config({
-  path: process.cwd() + `/environments/.env.${process.env.SCOPE}`,
-});
 import { ClientEntity, TransactionEntity } from '../postgres';
+import * as dotenv from 'dotenv';
+import { join } from 'node:path';
+dotenv.config({
+  path: join(process.cwd(), 'environments', `.env.${process.env.SCOPE}`),
+});
 
+/** @type {DataSourceOptions} */
 const databaseConfig: DataSourceOptions = {
   name: 'postgres',
   type: 'postgres',
