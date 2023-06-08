@@ -1,16 +1,6 @@
-/* import { Client } from '../entities';
-import { ClientRepository, ClientService } from '../ports';
+import { Test } from '@nestjs/testing';
+import { Client } from '../entities';
 import { ClientDomainService } from './ClientDomainService';
-
-function ClientRepositoryMock(client: Client): ClientRepository {
-  return {
-    findAll: jest.fn().mockReturnValue(Promise.resolve([client])),
-    findById: jest.fn().mockReturnValue(Promise.resolve(client)),
-    save: jest.fn().mockReturnValue(Promise.resolve(client)),
-    update: jest.fn().mockReturnValue(Promise.resolve(client)),
-    delete: jest.fn().mockReturnValue(Promise.resolve(client)),
-  };
-}
 
 const client = {
   clientId: '1',
@@ -26,61 +16,67 @@ const clientUpdated = {
   password: client.password,
   balance: client.balance,
   transactions: client.transactions,
-};
+} as Client;
 
 describe('ClientDomainService', () => {
-  let service: ClientService = null;
+  let clientDomainService: ClientDomainService;
+
+  beforeEach(async () => {
+    const moduleRef = await Test.createTestingModule({
+      providers: [
+        {
+          provide: ClientDomainService,
+          useValue: {
+            findAll: jest.fn(() => [client]),
+            findById: jest.fn(() => client),
+            save: jest.fn(() => client),
+            update: jest.fn(() => clientUpdated),
+            delete: jest.fn(() => client),
+          },
+        },
+      ],
+    }).compile();
+    clientDomainService = await moduleRef.resolve(ClientDomainService);
+  });
+
+  it('should be defined', () => {
+    expect(clientDomainService).toBeDefined();
+  });
 
   it('should create a new client', async () => {
-    // Arrange
-    const repositoryMock = ClientRepositoryMock(client);
-    service = new ClientDomainService(repositoryMock);
     // Act
-    await service.save(client);
+    await clientDomainService.save(client);
     // Assert
-    expect(repositoryMock.save).toBeCalled();
+    expect(clientDomainService.save).toBeCalled();
   });
 
   it('should update a client', async () => {
-    // Arrange
-    const repositoryMock = ClientRepositoryMock(client);
-    service = new ClientDomainService(repositoryMock);
     // Act
-    await service.update(client.clientId, clientUpdated);
+    await clientDomainService.update(client.clientId, clientUpdated);
     // Assert
-    expect(repositoryMock.update).toBeCalled();
+    expect(clientDomainService.update).toBeCalled();
   });
 
   it('should delete a client', async () => {
-    // Arrange
-    const repositoryMock = ClientRepositoryMock(client);
-    service = new ClientDomainService(repositoryMock);
     // Act
-    await service.delete(client.clientId);
+    await clientDomainService.delete(client.clientId);
     // Assert
-    expect(repositoryMock.delete).toBeCalled();
+    expect(clientDomainService.delete).toBeCalled();
   });
 
   it('should find a client by id', async () => {
-    // Arrange
-    const repositoryMock = ClientRepositoryMock(client);
-    service = new ClientDomainService(repositoryMock);
     // Act
-    const result = await service.findById(client.clientId);
+    const result = await clientDomainService.findById(client.clientId);
     // Assert
-    expect(repositoryMock.findById).toBeCalled();
+    expect(clientDomainService.findById).toBeCalled();
     expect(result).toEqual(client);
   });
 
   it('should find all clients', async () => {
-    // Arrange
-    const repositoryMock = ClientRepositoryMock(client);
-    service = new ClientDomainService(repositoryMock);
     // Act
-    const result = await service.findAll();
+    const result = await clientDomainService.findAll();
     // Assert
-    expect(repositoryMock.findAll).toBeCalled();
+    expect(clientDomainService.findAll).toBeCalled();
     expect(result).toEqual([client]);
   });
 });
- */
