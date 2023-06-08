@@ -8,6 +8,7 @@ import {
 import { CoreModule } from 'src/core/core.module';
 import { WalletController } from './http-server';
 import { GraphqlModule } from './graphql/graphql.module';
+import { AuthzModule } from './authz/authz.module';
 
 @Module({
   providers: [ClientRepositoryAdapter, TransactionRepositoryAdapter],
@@ -23,6 +24,7 @@ import { GraphqlModule } from './graphql/graphql.module';
     }),
     TypeOrmModule.forFeature([ClientEntity, TransactionEntity]),
     GraphqlModule,
+    AuthzModule,
   ],
   controllers: [WalletController],
 })
