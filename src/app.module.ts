@@ -1,21 +1,17 @@
 import { Module } from '@nestjs/common';
-import { CoreModule } from './core/core.module';
-import { InfrastructureModule } from './infrastructure/infrastructure.module';
 import { ConfigModule } from '@nestjs/config';
-import { join } from 'path';
+import { CoreModule } from './core/core.module';
 import {
   ClientRepositoryAdapter,
   TransactionRepositoryAdapter,
 } from './infrastructure/adapters';
+import configuration from './infrastructure/config/env-config';
+import { InfrastructureModule } from './infrastructure/infrastructure.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: join(
-        process.cwd(),
-        'environments',
-        `.env.${process.env.SCOPE}`,
-      ),
+      load: [configuration],
       cache: true,
       isGlobal: true,
     }),
