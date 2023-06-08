@@ -172,7 +172,9 @@ dist
 .svelte-kit
 
 # environment folder
-environments/*
 !environments/.env.example
+environments/.env.dev
+environments/.env.prod
+environments/.env.test
 
 # End of https://www.toptal.com/developers/gitignore/api/node,git,linux
