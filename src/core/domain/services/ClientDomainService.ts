@@ -1,4 +1,4 @@
-import { ClientServiceError } from 'src/core/shared/Error';
+import { ClientServiceError } from '../../shared';
 import { Client, TransactionType } from '../entities';
 import { ClientRepository, ClientService } from '../ports';
 

@@ -1,4 +1,4 @@
-import { TransactionServiceError } from 'src/core/shared';
+import { TransactionServiceError } from '../../shared';
 import { Transaction, TransactionType } from '../entities';
 import { TransactionRepository, TransactionService } from '../ports';
 import { ClientDomainService } from './ClientDomainService';
