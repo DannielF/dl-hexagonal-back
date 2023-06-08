@@ -1,9 +1,9 @@
-import { Client, Transaction } from 'src/core/domain/entities';
+import { Client, Transaction } from '../../domain/entities';
 import {
   ApplicationError,
   NewClientDto,
   NewTransactionDto,
-} from 'src/core/shared';
+} from '../../shared';
 import { WalletApplication } from '../walletApplication';
 import { ClientService, TransactionService } from 'src/core/domain';
 
