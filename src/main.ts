@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { SwaggerModule } from '@nestjs/swagger';
 import { config, options, swaggerOptions } from './infrastructure/config';
 
@@ -34,5 +34,6 @@ async function bootstrap(): Promise<void> {
   SwaggerModule.setup('api', app, document, swaggerOptions);
 
   await app.listen(3000);
+  Logger.log(`Running on 🚀: ${(await app.getUrl()).toString()}`);
 }
 bootstrap();
