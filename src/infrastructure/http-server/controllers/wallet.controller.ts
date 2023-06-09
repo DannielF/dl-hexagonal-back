@@ -6,7 +6,9 @@ import {
   Param,
   Post,
   UseFilters,
+  UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBody,
   ApiForbiddenResponse,
@@ -36,6 +38,7 @@ import { AllExceptionsFilter, WalletFilter } from '../exception-filters';
   path: '/wallet',
   version: '1',
 })
+@UseGuards(AuthGuard('jwt'))
 @UseFilters(WalletFilter, AllExceptionsFilter)
 export class WalletController {
   constructor(

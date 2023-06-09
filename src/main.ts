@@ -1,7 +1,7 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
+import { AppModule } from './app.module';
 import { config, options, swaggerOptions } from './infrastructure/config';
 
 async function bootstrap(): Promise<void> {
@@ -22,13 +22,7 @@ async function bootstrap(): Promise<void> {
     }),
   );
 
-  app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'http://localhost:4200',
-      'http://localhost:3001',
-    ],
-  });
+  app.enableCors();
 
   const document = SwaggerModule.createDocument(app, config, options);
   SwaggerModule.setup('api', app, document, swaggerOptions);
