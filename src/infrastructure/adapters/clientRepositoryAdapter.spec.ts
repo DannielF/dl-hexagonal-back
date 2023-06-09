@@ -5,7 +5,7 @@ import { Client } from '../../core/domain';
 const client = {
   clientId: '1',
   email: 'jhon@email.com',
-  password: '123456',
+  documentId: '123456',
   balance: 1000,
   transactions: [],
 } as Client;
@@ -13,7 +13,7 @@ const client = {
 const clientUpdated = {
   clientId: client.clientId,
   email: 'doe@email.com',
-  password: client.password,
+  documentId: client.documentId,
   balance: 1200,
   transactions: client.transactions,
 } as Client;

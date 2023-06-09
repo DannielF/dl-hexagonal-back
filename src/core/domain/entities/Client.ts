@@ -9,14 +9,14 @@ import { Transaction } from './Transaction';
 export class Client {
   clientId: string;
   email: string;
-  password: string;
   balance: number;
+  documentId: string;
   transactions: Array<Transaction>;
 
-  static create(email: string, password: string) {
+  static create(email: string, documentId: string) {
     const user = new Client();
     user.email = email;
-    user.password = password;
+    user.documentId = documentId;
     user.balance = 1000;
     user.transactions = [];
     return user;

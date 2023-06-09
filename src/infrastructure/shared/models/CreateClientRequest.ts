@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsString } from 'class-validator';
 
 /**
  * @description CreateClientRequest model class
@@ -16,9 +16,8 @@ export class CreateClientRequest {
   @ApiProperty({ example: 'email@email.com', type: String, required: true })
   email: string;
 
-  @Field(() => String, { nullable: false, description: 'password' })
+  @Field(() => String, { nullable: false, description: 'documentId' })
   @IsString()
-  @IsNotEmpty()
-  @ApiProperty({ example: 'password', type: String, required: true })
-  password: string;
+  @ApiProperty({ example: '123456789', type: String, required: true })
+  documentId: string;
 }

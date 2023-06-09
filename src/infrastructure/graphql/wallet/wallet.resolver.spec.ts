@@ -5,7 +5,7 @@ import { Client, Transaction, TransactionType } from '../../../core/domain';
 const client = {
   clientId: '1',
   email: 'jhon@email.com',
-  password: '123456',
+  documentId: '123456',
   balance: 1000,
   transactions: [],
 } as Client;

@@ -19,9 +19,9 @@ export class ClientEntity {
   @Column({ name: 'email', type: 'varchar', length: 255 })
   email: string;
 
-  @Field(() => String, { description: 'password' })
-  @Column({ name: 'password', type: 'varchar', length: 255 })
-  password: string;
+  @Field(() => String, { description: 'document_id' })
+  @Column({ name: 'document_id', type: 'varchar', length: 255 })
+  documentId: string;
 
   @Field(() => Number, { description: 'balance' })
   @Column({ name: 'balance', type: 'int' })

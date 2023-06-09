@@ -11,14 +11,14 @@ import { WalletApplicationService } from './walletApplicationService';
 const client = {
   clientId: '1',
   email: 'jhon@email.com',
-  password: '123456',
+  documentId: '123456',
   balance: 1000,
   transactions: [],
 } as Client;
 const clientUpdated = {
   clientId: '1',
   email: 'jhon@email.com',
-  password: '1234567',
+  documentId: '1234567',
   balance: 1000,
   transactions: [],
 } as Client;
@@ -91,7 +91,7 @@ describe('WalletApplicationService', () => {
     // Act
     const result = await service.createClient({
       email: client.email,
-      password: client.password,
+      password: client.documentId,
     });
     // Assert
     expect(clientService.save).toBeCalled();

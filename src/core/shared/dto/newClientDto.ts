@@ -6,5 +6,5 @@
  */
 export interface NewClientDto {
   email: string;
-  password: string;
+  documentId: string;
 }
