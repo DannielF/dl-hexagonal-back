@@ -177,4 +177,7 @@ environments/.env.dev
 environments/.env.prod
 environments/.env.test
 
+# postgres data
+data
+
 # End of https://www.toptal.com/developers/gitignore/api/node,git,linux
