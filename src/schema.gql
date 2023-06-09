@@ -36,8 +36,8 @@ type ClientEntity {
   """email"""
   email: String!
 
-  """password"""
-  password: String!
+  """document_id"""
+  documentId: String!
 
   """balance"""
   balance: Float!
@@ -64,8 +64,8 @@ input CreateClientRequest {
   """email"""
   email: String!
 
-  """password"""
-  password: String!
+  """documentId"""
+  documentId: String!
 }
 
 input CreateTransactionRequest {
