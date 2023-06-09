@@ -91,7 +91,7 @@ describe('WalletApplicationService', () => {
     // Act
     const result = await service.createClient({
       email: client.email,
-      password: client.documentId,
+      documentId: client.documentId,
     });
     // Assert
     expect(clientService.save).toBeCalled();
