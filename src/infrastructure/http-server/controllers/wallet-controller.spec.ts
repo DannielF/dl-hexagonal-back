@@ -79,6 +79,7 @@ describe('WalletController', () => {
           return {
             findAllClients: jest.fn(() => [client]),
             findClientById: jest.fn(() => client),
+            findClientByEmail: jest.fn(() => client),
             findAllTransactions: jest.fn(() => [transaction]),
             findTransactionsByClientId: jest.fn(() => [transaction]),
             createClient: jest.fn(() => client),
@@ -103,6 +104,11 @@ describe('WalletController', () => {
 
   it('should return a client by id', async () => {
     const result = await controller.findClientById('1');
+    expect(result).toEqual(appResponseClient);
+  });
+
+  it('should return a client by email', async () => {
+    const result = await controller.findClientByEmail('jhon');
     expect(result).toEqual(appResponseClient);
   });
 

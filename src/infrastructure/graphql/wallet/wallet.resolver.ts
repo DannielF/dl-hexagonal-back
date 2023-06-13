@@ -45,6 +45,12 @@ export class WalletResolver {
     return await this.application.findClientById(id);
   }
 
+  @Query(() => ClientEntity)
+  async findClientByEmail(@Args('email') email: string): Promise<Client> {
+    Log.info('Finding client by email');
+    return await this.application.findClientByEmail(email);
+  }
+
   @Query(() => [TransactionEntity])
   async findTransactionsByClient(
     @Args('id') id: string,

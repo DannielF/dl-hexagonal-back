@@ -72,6 +72,19 @@ export class WalletController {
     return AppResponse.create(200, 'Client found successfully', response);
   }
 
+  @ApiOperation({ summary: 'Find client by email' })
+  @ApiOkResponse({
+    description: 'Client found successfully',
+    type: AppResponse,
+  })
+  @ApiNotFoundResponse({ description: 'Client not found' })
+  @ApiForbiddenResponse({ description: 'Unauthorized request' })
+  @Get('/client/email/:email')
+  async findClientByEmail(@Param('email') email: string): Promise<AppResponse> {
+    const response = await this.application.findClientByEmail(email);
+    return AppResponse.create(200, 'Client found successfully', response);
+  }
+
   @ApiOperation({ summary: 'Find all transactions' })
   @ApiOkResponse({
     description: 'Transactions found successfully',

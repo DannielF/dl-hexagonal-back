@@ -28,6 +28,7 @@ describe('ClientDomainService', () => {
           provide: ClientDomainService,
           useValue: {
             findById: jest.fn(() => client),
+            findByEmail: jest.fn(() => client),
             findAll: jest.fn(() => [client]),
             save: jest.fn(() => client),
             update: jest.fn(() => clientUpdated),
@@ -78,6 +79,14 @@ describe('ClientDomainService', () => {
     const result = await clientDomainService.findById(client.clientId);
     // Assert
     expect(clientDomainService.findById).toBeCalled();
+    expect(result).toEqual(client);
+  });
+
+  it('should find a client by email', async () => {
+    // Act
+    const result = await clientDomainService.findByEmail(client.email);
+    // Assert
+    expect(clientDomainService.findByEmail).toBeCalled();
     expect(result).toEqual(client);
   });
 

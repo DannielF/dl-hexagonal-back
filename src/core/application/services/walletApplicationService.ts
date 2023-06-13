@@ -26,6 +26,12 @@ export class WalletApplicationService implements WalletApplication {
     return client;
   }
 
+  async findClientByEmail(email: string): Promise<Client> {
+    const client = await this.client.findByEmail(email);
+    if (!client) throw new ApplicationError('Client not found');
+    return client;
+  }
+
   async findTransactionsByClientId(id: string): Promise<Transaction[]> {
     const transactions = await this.transaction.findByClientId(id);
     if (!transactions)

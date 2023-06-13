@@ -29,6 +29,7 @@ describe('Client repository adapter', () => {
           useValue: {
             findAll: jest.fn(() => [client]),
             findById: jest.fn(() => client),
+            findByEmail: jest.fn(() => client),
             save: jest.fn(() => client),
             update: jest.fn(() => clientUpdated),
             delete: jest.fn(() => true),
@@ -52,6 +53,11 @@ describe('Client repository adapter', () => {
 
   it('Should find a client by id', async () => {
     const result = await repositoryAdapter.findById('1');
+    expect(result).toEqual(client);
+  });
+
+  it('Should find a client by email', async () => {
+    const result = await repositoryAdapter.findByEmail(client.email);
     expect(result).toEqual(client);
   });
 

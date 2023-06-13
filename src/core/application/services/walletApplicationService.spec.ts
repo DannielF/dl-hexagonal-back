@@ -28,6 +28,7 @@ function ClientServiceMock(): ClientService {
     save: jest.fn().mockReturnValue(Promise.resolve(client)),
     findAll: jest.fn().mockReturnValue(Promise.resolve([client])),
     findById: jest.fn().mockReturnValue(Promise.resolve(client)),
+    findByEmail: jest.fn().mockReturnValue(Promise.resolve(client)),
     update: jest.fn().mockReturnValue(Promise.resolve(clientUpdated)),
     delete: jest.fn().mockReturnValue(Promise.resolve(client)),
     updateBalance: jest.fn().mockReturnValue(Promise.resolve()),
@@ -119,6 +120,18 @@ describe('WalletApplicationService', () => {
     const result = await service.findClientById('1');
     // Assert
     expect(clientService.findById).toBeCalled();
+    expect(result).toStrictEqual(client);
+  });
+
+  it('should find client by email', async () => {
+    // Arrange
+    const clientService = ClientServiceMock();
+    const transactionService = TransactionServiceMock();
+    service = new WalletApplicationService(clientService, transactionService);
+    // Act
+    const result = await service.findClientByEmail(client.email);
+    // Assert
+    expect(clientService.findByEmail).toBeCalled();
     expect(result).toStrictEqual(client);
   });
 

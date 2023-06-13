@@ -57,6 +57,7 @@ describe('WalletResolver', () => {
             findAllClients: jest.fn(() => [client]),
             findAllTransactions: jest.fn(() => [transaction]),
             findClientById: jest.fn(() => client),
+            findClientByEmail: jest.fn(() => client),
             findTransactionsByClient: jest.fn(() => [transaction]),
             createWallet: jest.fn(() => client),
             makeTransfer: jest.fn(() => transactionTransfer),
@@ -86,6 +87,11 @@ describe('WalletResolver', () => {
 
   it('should return a client by id', async () => {
     const result = await resolver.findClientById(client.clientId);
+    expect(result).toEqual(client);
+  });
+
+  it('should return a client by email', async () => {
+    const result = await resolver.findClientByEmail(client.email);
     expect(result).toEqual(client);
   });
 

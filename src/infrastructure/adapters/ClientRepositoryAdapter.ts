@@ -33,6 +33,15 @@ export class ClientRepositoryAdapter implements ClientRepository {
       },
     });
   }
+
+  async findByEmail(email: string): Promise<Client> {
+    return await this.repository.findOne({
+      where: {
+        email: email,
+      },
+    });
+  }
+
   async findAll(): Promise<Client[]> {
     return await this.repository.find();
   }
@@ -40,6 +49,7 @@ export class ClientRepositoryAdapter implements ClientRepository {
   async save(user: Client): Promise<Client> {
     return await this.repository.save(user);
   }
+
   async update(id: string, user: Client): Promise<Client> {
     const userToUpdate = await this.repository.preload({
       clientId: id,
@@ -47,6 +57,7 @@ export class ClientRepositoryAdapter implements ClientRepository {
     });
     return await this.repository.save(userToUpdate);
   }
+
   async delete(id: string): Promise<boolean> {
     const userToDelete = await this.findById(id);
     await this.repository.delete(userToDelete);

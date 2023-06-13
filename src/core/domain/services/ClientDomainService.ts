@@ -18,6 +18,12 @@ export class ClientDomainService implements ClientService {
     return user;
   }
 
+  async findByEmail(email: string): Promise<Client> {
+    const user = await this.repository.findByEmail(email);
+    if (!user) throw new ClientServiceError('User not found');
+    return user;
+  }
+
   async findAll(): Promise<Client[]> {
     return await this.repository.findAll();
   }

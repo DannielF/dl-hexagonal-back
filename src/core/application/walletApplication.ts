@@ -9,6 +9,7 @@ import { NewClientDto, NewTransactionDto } from '../shared';
  */
 export interface WalletApplication {
   findClientById(id: string): Promise<Client>;
+  findClientByEmail(email: string): Promise<Client>;
   findTransactionsByClientId(id: string): Promise<Array<Transaction>>;
   findAllClients(): Promise<Array<Client>>;
   findAllTransactions(): Promise<Array<Transaction>>;
