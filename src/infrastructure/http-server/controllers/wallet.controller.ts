@@ -27,6 +27,12 @@ import {
 } from '../../shared/models';
 import { AllExceptionsFilter, WalletFilter } from '../exception-filters';
 
+const CLIENT_FOUND_SUCCESSFULLY = 'Client found successfully';
+const CLIENTS_FOUND_SUCCESSFULLY = 'Clients found successfully';
+const CLIENT_NOT_FOUND = 'Client not found';
+const TRANSACTIONS_FOUND_SUCCESSFULLY = 'Transactions found successfully';
+const UNAUTHORIZED_REQUEST = 'Unauthorized request';
+
 /**
  * @description Controller for wallet endpoint
  * @author dannielf
@@ -47,71 +53,71 @@ export class WalletController {
 
   @ApiOperation({ summary: 'Find all clients' })
   @ApiOkResponse({
-    description: 'Clients found successfully',
+    description: CLIENTS_FOUND_SUCCESSFULLY,
     type: AppResponse,
   })
   @ApiNotFoundResponse({ description: 'Clients not found' })
-  @ApiForbiddenResponse({ description: 'Unauthorized request' })
+  @ApiForbiddenResponse({ description: UNAUTHORIZED_REQUEST })
   @Get('/clients')
   async findAllClients(): Promise<AppResponse> {
     Log.info('Finding all clients');
-    const response = await this.application.findAllClients();
-    return AppResponse.create(200, 'Clients found successfully', response);
+    const data = await this.application.findAllClients();
+    return AppResponse.create(200, CLIENTS_FOUND_SUCCESSFULLY, data);
   }
 
   @ApiOperation({ summary: 'Find client by id' })
   @ApiOkResponse({
-    description: 'Client found successfully',
+    description: CLIENT_FOUND_SUCCESSFULLY,
     type: AppResponse,
   })
-  @ApiNotFoundResponse({ description: 'Client not found' })
-  @ApiForbiddenResponse({ description: 'Unauthorized request' })
+  @ApiNotFoundResponse({ description: CLIENT_NOT_FOUND })
+  @ApiForbiddenResponse({ description: UNAUTHORIZED_REQUEST })
   @Get('/client/:id')
   async findClientById(@Param('id') id: string): Promise<AppResponse> {
-    const response = await this.application.findClientById(id);
-    return AppResponse.create(200, 'Client found successfully', response);
+    const data = await this.application.findClientById(id);
+    return AppResponse.create(200, CLIENT_FOUND_SUCCESSFULLY, data);
   }
 
   @ApiOperation({ summary: 'Find client by email' })
   @ApiOkResponse({
-    description: 'Client found successfully',
+    description: CLIENT_FOUND_SUCCESSFULLY,
     type: AppResponse,
   })
-  @ApiNotFoundResponse({ description: 'Client not found' })
-  @ApiForbiddenResponse({ description: 'Unauthorized request' })
+  @ApiNotFoundResponse({ description: CLIENT_NOT_FOUND })
+  @ApiForbiddenResponse({ description: UNAUTHORIZED_REQUEST })
   @Get('/client/email/:email')
   async findClientByEmail(@Param('email') email: string): Promise<AppResponse> {
-    const response = await this.application.findClientByEmail(email);
-    return AppResponse.create(200, 'Client found successfully', response);
+    const data = await this.application.findClientByEmail(email);
+    return AppResponse.create(200, CLIENT_FOUND_SUCCESSFULLY, data);
   }
 
   @ApiOperation({ summary: 'Find all transactions' })
   @ApiOkResponse({
-    description: 'Transactions found successfully',
+    description: TRANSACTIONS_FOUND_SUCCESSFULLY,
     type: AppResponse,
   })
   @ApiNotFoundResponse({ description: 'Transactions not found' })
-  @ApiForbiddenResponse({ description: 'Unauthorized request' })
+  @ApiForbiddenResponse({ description: UNAUTHORIZED_REQUEST })
   @Get('/transactions')
   async findAllTransactions(): Promise<AppResponse> {
     Log.info('Finding all transactions');
-    const response = await this.application.findAllTransactions();
-    return AppResponse.create(200, 'Transactions found successfully', response);
+    const data = await this.application.findAllTransactions();
+    return AppResponse.create(200, TRANSACTIONS_FOUND_SUCCESSFULLY, data);
   }
 
   @ApiOperation({ summary: 'Find transactions by client id' })
   @ApiOkResponse({
-    description: 'Transactions found successfully',
+    description: TRANSACTIONS_FOUND_SUCCESSFULLY,
     type: AppResponse,
   })
   @ApiNotFoundResponse({ description: 'Transactions not found' })
-  @ApiForbiddenResponse({ description: 'Unauthorized request' })
+  @ApiForbiddenResponse({ description: UNAUTHORIZED_REQUEST })
   @Get('/transactions/:id')
   async findTransactionsByClientId(
     @Param('id') id: string,
   ): Promise<AppResponse> {
-    const response = await this.application.findTransactionsByClientId(id);
-    return AppResponse.create(200, 'Transactions found successfully', response);
+    const data = await this.application.findTransactionsByClientId(id);
+    return AppResponse.create(200, TRANSACTIONS_FOUND_SUCCESSFULLY, data);
   }
 
   @ApiOperation({ summary: 'Create a new wallet' })
@@ -120,16 +126,16 @@ export class WalletController {
     type: AppResponse,
   })
   @ApiNotFoundResponse({ description: 'Wallet not created' })
-  @ApiForbiddenResponse({ description: 'Unauthorized request' })
+  @ApiForbiddenResponse({ description: UNAUTHORIZED_REQUEST })
   @ApiBody({ type: CreateClientRequest, required: true })
   @Post()
   async createWallet(
     @Body() request: CreateClientRequest,
   ): Promise<AppResponse> {
     Log.info('Creating wallet', request);
-    const response = await this.application.createClient(request);
+    const data = await this.application.createClient(request);
 
-    return AppResponse.create(201, 'Wallet created successfully', response);
+    return AppResponse.create(201, 'Wallet created successfully', data);
   }
 
   @ApiOperation({ summary: 'Make a new transaction' })
@@ -138,15 +144,15 @@ export class WalletController {
     type: AppResponse,
   })
   @ApiNotFoundResponse({ description: 'Transaction not made' })
-  @ApiForbiddenResponse({ description: 'Unauthorized request' })
+  @ApiForbiddenResponse({ description: UNAUTHORIZED_REQUEST })
   @ApiBody({ type: CreateTransactionRequest, required: true })
   @Post('/transfer')
   async makeTransaction(
     @Body() request: CreateTransactionRequest,
   ): Promise<AppResponse> {
     Log.info('Making transaction', request);
-    const response = await this.application.makeTransfer(request);
-    return AppResponse.create(201, 'Transfer made successfully', response);
+    const data = await this.application.makeTransfer(request);
+    return AppResponse.create(201, 'Transfer made successfully', data);
   }
 
   @ApiOperation({ summary: 'Make a new deposit' })
@@ -155,15 +161,15 @@ export class WalletController {
     type: AppResponse,
   })
   @ApiNotFoundResponse({ description: 'Deposit not made' })
-  @ApiForbiddenResponse({ description: 'Unauthorized request' })
+  @ApiForbiddenResponse({ description: UNAUTHORIZED_REQUEST })
   @ApiBody({ type: CreateTransactionRequest, required: true })
   @Post('/deposit')
   async makeDeposit(
     @Body() request: CreateTransactionRequest,
   ): Promise<AppResponse> {
     Log.info('Making deposit', request);
-    const response = await this.application.makeDeposit(request);
-    return AppResponse.create(201, 'Deposit made successfully', response);
+    const data = await this.application.makeDeposit(request);
+    return AppResponse.create(201, 'Deposit made successfully', data);
   }
 
   @ApiOperation({ summary: 'Make a new withdraw' })
@@ -172,14 +178,14 @@ export class WalletController {
     type: AppResponse,
   })
   @ApiNotFoundResponse({ description: 'Withdraw not made' })
-  @ApiForbiddenResponse({ description: 'Unauthorized request' })
+  @ApiForbiddenResponse({ description: UNAUTHORIZED_REQUEST })
   @ApiBody({ type: CreateTransactionRequest, required: true })
   @Post('/withdraw')
   async makeWithdraw(
     @Body() request: CreateTransactionRequest,
   ): Promise<AppResponse> {
     Log.info('Making withdraw', request);
-    const response = await this.application.makeWithdraw(request);
-    return AppResponse.create(201, 'Withdraw made successfully', response);
+    const data = await this.application.makeWithdraw(request);
+    return AppResponse.create(201, 'Withdraw made successfully', data);
   }
 }
