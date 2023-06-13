@@ -50,6 +50,7 @@ type Query {
   findAllClients: [ClientEntity!]!
   findAllTransactions: [TransactionEntity!]!
   findClientById(id: String!): ClientEntity!
+  findClientByEmail(email: String!): ClientEntity!
   findTransactionsByClient(id: String!): [TransactionEntity!]!
 }
 

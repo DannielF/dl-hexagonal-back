@@ -51,7 +51,7 @@ const appResponseTransactions = AppResponse.create(
   'Transactions found successfully',
   [transaction],
 );
-const appResponseTransactionTrasnfer = AppResponse.create(
+const appResponseTransactionTransfer = AppResponse.create(
   201,
   'Transfer made successfully',
   transactionTransfer,
@@ -129,7 +129,7 @@ describe('WalletController', () => {
 
   it('should make a transfer', async () => {
     const result = await controller.makeTransaction(transaction);
-    expect(result).toEqual(appResponseTransactionTrasnfer);
+    expect(result).toEqual(appResponseTransactionTransfer);
   });
 
   it('should make a deposit', async () => {
