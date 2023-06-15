@@ -25,7 +25,7 @@ import {
   CreateClientRequest,
   CreateTransactionRequest,
 } from '../../shared/models';
-import { AllExceptionsFilter, WalletFilter } from '../exception-filters';
+import { TypeOrmExceptionFilter, WalletFilter } from '../exception-filters';
 
 const CLIENT_FOUND_SUCCESSFULLY = 'Client found successfully';
 const CLIENTS_FOUND_SUCCESSFULLY = 'Clients found successfully';
@@ -45,7 +45,7 @@ const UNAUTHORIZED_REQUEST = 'Unauthorized request';
   version: '1',
 })
 @UseGuards(AuthGuard('jwt'))
-@UseFilters(WalletFilter, AllExceptionsFilter)
+@UseFilters(WalletFilter, TypeOrmExceptionFilter)
 export class WalletController {
   constructor(
     @Inject(WALLET_APPLICATION) private application: WalletApplication,

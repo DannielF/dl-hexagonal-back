@@ -48,7 +48,7 @@ export class WalletApplicationService implements WalletApplication {
   }
 
   async createClient(newClient: NewClientDto): Promise<Client> {
-    const entity = Client.create(newClient.email, newClient.documentId);
+    const entity = Client.create(newClient.email);
     return await this.client.save(entity);
   }
 
