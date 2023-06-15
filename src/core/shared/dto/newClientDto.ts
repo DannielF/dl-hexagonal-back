@@ -6,5 +6,4 @@
  */
 export interface NewClientDto {
   email: string;
-  documentId: string;
 }
