@@ -15,7 +15,7 @@
     docker-compose --env-file ./environments/.env.dev up -d
     docker-compose down
     # typeOrm
-     npm run migration:generate .path/to/migration/migrationName
+    npm run migration:generate .path/to/migration/migrationName
     npm run migration:run
     # project
     npm start:dev
