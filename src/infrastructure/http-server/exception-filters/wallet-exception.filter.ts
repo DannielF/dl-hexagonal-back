@@ -6,7 +6,11 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { ApplicationError } from '../../../core/shared';
+import {
+  ApplicationError,
+  ClientServiceError,
+  TransactionServiceError,
+} from '../../../core/shared';
 
 /**
  * @description Filter for wallet controller exceptions
@@ -15,7 +19,7 @@ import { ApplicationError } from '../../../core/shared';
  * @class WalletFilter
  * @implements {ExceptionFilter}
  */
-@Catch(ApplicationError)
+@Catch(ApplicationError, ClientServiceError, TransactionServiceError)
 export class WalletFilter implements ExceptionFilter {
   catch(exception: ApplicationError, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
