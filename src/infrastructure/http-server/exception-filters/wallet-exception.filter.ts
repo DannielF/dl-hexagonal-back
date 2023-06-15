@@ -5,7 +5,7 @@ import {
   HttpStatus,
   Logger,
 } from '@nestjs/common';
-import { Response, Request } from 'express';
+import { Request, Response } from 'express';
 import { ApplicationError } from '../../../core/shared';
 
 /**
@@ -27,8 +27,9 @@ export class WalletFilter implements ExceptionFilter {
     );
 
     response.status(HttpStatus.BAD_REQUEST).json({
-      status: HttpStatus.BAD_REQUEST,
+      statusCode: HttpStatus.BAD_REQUEST,
       message: exception.message,
+      path: request.url,
     });
   }
 }

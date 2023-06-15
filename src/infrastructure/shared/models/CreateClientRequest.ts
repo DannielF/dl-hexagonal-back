@@ -15,9 +15,4 @@ export class CreateClientRequest {
   @IsEmail()
   @ApiProperty({ example: 'email@email.com', type: String, required: true })
   email: string;
-
-  @Field(() => String, { nullable: false, description: 'documentId' })
-  @IsString()
-  @ApiProperty({ example: '123456789', type: String, required: true })
-  documentId: string;
 }

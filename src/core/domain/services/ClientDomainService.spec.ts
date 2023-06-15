@@ -5,7 +5,6 @@ import { ClientDomainService } from './ClientDomainService';
 const client = {
   clientId: '1',
   email: 'jhon@email.com',
-  documentId: '123456',
   balance: 1000,
   transactions: [],
 } as Client;
@@ -13,7 +12,6 @@ const client = {
 const clientUpdated = {
   clientId: client.clientId,
   email: 'doe@email.com',
-  documentId: client.documentId,
   balance: 1200,
   transactions: client.transactions,
 } as Client;

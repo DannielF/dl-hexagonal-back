@@ -1,2 +1,2 @@
-export * from './all-exception.filter';
+export * from './typeorm-exception.filter';
 export * from './wallet-exception.filter';

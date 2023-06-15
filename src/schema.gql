@@ -36,9 +36,6 @@ type ClientEntity {
   """email"""
   email: String!
 
-  """document_id"""
-  documentId: String!
-
   """balance"""
   balance: Float!
 
@@ -64,9 +61,6 @@ type Mutation {
 input CreateClientRequest {
   """email"""
   email: String!
-
-  """documentId"""
-  documentId: String!
 }
 
 input CreateTransactionRequest {
