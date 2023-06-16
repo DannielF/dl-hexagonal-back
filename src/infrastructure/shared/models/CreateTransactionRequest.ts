@@ -1,7 +1,11 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
+import { Field, InputType, Int, registerEnumType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsInt, IsPositive, IsString, IsUUID } from 'class-validator';
 import { TransactionType } from '../../../core/domain';
+
+registerEnumType(TransactionType, {
+  name: 'TransactionType',
+});
 
 /**
  * @description CreateTransactionRequest model class
@@ -37,7 +41,10 @@ export class CreateTransactionRequest {
   @ApiProperty({ example: 100, type: Number, required: true })
   quantity: number;
 
-  @Field(() => String, { nullable: false, description: 'transaction type' })
+  @Field(() => TransactionType, {
+    nullable: false,
+    description: 'transaction type',
+  })
   @IsEnum(TransactionType)
   @ApiProperty({
     example: TransactionType.DEPOSIT,
