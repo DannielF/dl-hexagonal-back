@@ -74,5 +74,11 @@ input CreateTransactionRequest {
   quantity: Int!
 
   """transaction type"""
-  type: String!
+  type: TransactionType!
+}
+
+enum TransactionType {
+  DEPOSIT
+  WITHDRAW
+  TRANSFER
 }
