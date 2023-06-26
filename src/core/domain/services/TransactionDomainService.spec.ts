@@ -8,6 +8,9 @@ const transaction = {
   quantity: 100,
   date: new Date(),
   type: 'TRANSFER',
+  client: {
+    clientId: '1',
+  },
 } as Transaction;
 
 describe('TransactionDomainService', () => {

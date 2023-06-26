@@ -1,7 +1,10 @@
 import { Test } from '@nestjs/testing';
-import { WalletController } from './wallet.controller';
 import { Client, Transaction, TransactionType } from '../../../core/domain';
-import { AppResponse } from '../../../infrastructure/shared/models';
+import {
+  AppResponse,
+  CreateTransactionRequest,
+} from '../../../infrastructure/shared/models';
+import { WalletController } from './wallet.controller';
 
 const client = {
   clientId: '1',
@@ -17,20 +20,25 @@ const transaction = {
   quantity: 10,
   date: new Date(),
 } as Transaction;
+
 const transactionTransfer = {
   ...transaction,
   type: TransactionType.TRANSFER,
-} as Transaction;
+  clientId: '1',
+} as CreateTransactionRequest;
 
 const transactionDeposit = {
   ...transaction,
   type: TransactionType.DEPOSIT,
-} as Transaction;
+  clientId: '1',
+} as CreateTransactionRequest;
 
 const transactionWithdraw = {
   ...transaction,
   type: TransactionType.WITHDRAW,
-} as Transaction;
+  clientId: '1',
+} as CreateTransactionRequest;
+
 const appResponseClients = AppResponse.create(
   200,
   'Clients found successfully',
@@ -128,17 +136,17 @@ describe('WalletController', () => {
   });
 
   it('should make a transfer', async () => {
-    const result = await controller.makeTransaction(transaction);
+    const result = await controller.makeTransaction(transactionTransfer);
     expect(result).toEqual(appResponseTransactionTransfer);
   });
 
   it('should make a deposit', async () => {
-    const result = await controller.makeDeposit(transaction);
+    const result = await controller.makeDeposit(transactionDeposit);
     expect(result).toEqual(appResponseTransactionDeposit);
   });
 
   it('should make a withdraw', async () => {
-    const result = await controller.makeWithdraw(transaction);
+    const result = await controller.makeWithdraw(transactionWithdraw);
     expect(result).toEqual(appResponseTransactionWithdraw);
   });
 });

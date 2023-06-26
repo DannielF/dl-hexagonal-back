@@ -43,7 +43,7 @@ export class ClientDomainService implements ClientService {
     balance: number,
     operation: TransactionType,
   ): Promise<void> {
-    const userDb = await this.findById(id);
+    const userDb = await this.findByEmail(id);
 
     switch (operation) {
       case TransactionType.DEPOSIT:

@@ -39,6 +39,10 @@ const transaction = {
   to: 'doe',
   quantity: 10,
   date: new Date(),
+  type: TransactionType.TRANSFER,
+  client: {
+    clientId: '1',
+  },
 } as Transaction;
 
 const transactionTransfer = {
@@ -48,6 +52,9 @@ const transactionTransfer = {
   quantity: 10,
   type: TransactionType.TRANSFER,
   date: new Date(),
+  client: {
+    clientId: '1',
+  },
 } as Transaction;
 
 const transactionDeposit = {
@@ -57,6 +64,9 @@ const transactionDeposit = {
   quantity: 10,
   type: TransactionType.DEPOSIT,
   date: new Date(),
+  client: {
+    clientId: '1',
+  },
 } as Transaction;
 
 const transactionWithdraw = {
@@ -66,6 +76,9 @@ const transactionWithdraw = {
   quantity: 10,
   type: TransactionType.WITHDRAW,
   date: new Date(),
+  client: {
+    clientId: '1',
+  },
 } as Transaction;
 
 function TransactionServiceMock(): TransactionService {
@@ -167,6 +180,7 @@ describe('WalletApplicationService', () => {
       to: 'doe',
       quantity: 10,
       type: TransactionType.TRANSFER,
+      clientId: '1',
     });
     // Assert
     expect(transactionService.transfer).toBeCalled();
@@ -184,6 +198,7 @@ describe('WalletApplicationService', () => {
       to: 'jhon',
       quantity: 10,
       type: TransactionType.DEPOSIT,
+      clientId: '1',
     });
     // Assert
     expect(transactionService.deposit).toBeCalled();
@@ -201,6 +216,7 @@ describe('WalletApplicationService', () => {
       to: 'jhon',
       quantity: 10,
       type: TransactionType.WITHDRAW,
+      clientId: '1',
     });
     // Assert
     expect(transactionService.withdraw).toBeCalled();

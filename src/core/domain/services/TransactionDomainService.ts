@@ -84,11 +84,11 @@ export class TransactionDomainService implements TransactionService {
 
   async validateExistClients(transaction: Transaction): Promise<boolean> {
     if (transaction.from !== transaction.to) {
-      const from = await this.clientService.findById(transaction.from);
-      const to = await this.clientService.findById(transaction.to);
+      const from = await this.clientService.findByEmail(transaction.from);
+      const to = await this.clientService.findByEmail(transaction.to);
       if (!from || !to) return false;
     }
-    const client = await this.clientService.findById(transaction.from);
+    const client = await this.clientService.findByEmail(transaction.from);
     if (!client) return false;
   }
 }

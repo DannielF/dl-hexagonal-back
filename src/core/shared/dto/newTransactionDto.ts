@@ -10,5 +10,6 @@ export interface NewTransactionDto {
   from: string;
   to: string;
   type: TransactionType;
+  clientId: string;
   quantity: number;
 }

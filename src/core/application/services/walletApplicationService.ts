@@ -53,7 +53,7 @@ export class WalletApplicationService implements WalletApplication {
   }
 
   async makeTransfer(newTransaction: NewTransactionDto): Promise<Transaction> {
-    const client = Client.createWithId(newTransaction.from);
+    const client = Client.createWithId(newTransaction.clientId);
     const entity = Transaction.create(
       newTransaction.from,
       newTransaction.to,
@@ -65,7 +65,7 @@ export class WalletApplicationService implements WalletApplication {
   }
 
   makeDeposit(newTransaction: NewTransactionDto): Promise<Transaction> {
-    const client = Client.createWithId(newTransaction.from);
+    const client = Client.createWithId(newTransaction.clientId);
     const entity = Transaction.create(
       newTransaction.from,
       newTransaction.to,
@@ -77,7 +77,7 @@ export class WalletApplicationService implements WalletApplication {
   }
 
   makeWithdraw(newTransaction: NewTransactionDto): Promise<Transaction> {
-    const client = Client.createWithId(newTransaction.from);
+    const client = Client.createWithId(newTransaction.clientId);
     const entity = Transaction.create(
       newTransaction.from,
       newTransaction.to,

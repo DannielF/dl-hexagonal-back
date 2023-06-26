@@ -1,6 +1,13 @@
 import { Field, InputType, Int, registerEnumType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsInt, IsPositive, IsString, IsUUID } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsInt,
+  IsPositive,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 import { TransactionType } from '../../../core/domain';
 
 registerEnumType(TransactionType, {
@@ -16,20 +23,20 @@ registerEnumType(TransactionType, {
 @InputType()
 export class CreateTransactionRequest {
   @Field(() => String, { nullable: false, description: 'fromClient' })
+  @IsEmail()
   @IsString()
-  @IsUUID()
   @ApiProperty({
-    example: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+    example: 'email@email.com',
     type: String,
     required: true,
   })
   from: string;
 
   @Field(() => String, { nullable: false, description: 'toClient' })
+  @IsEmail()
   @IsString()
-  @IsUUID()
   @ApiProperty({
-    example: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+    example: 'email@email.com',
     type: String,
     required: true,
   })
@@ -52,4 +59,13 @@ export class CreateTransactionRequest {
     required: true,
   })
   type: TransactionType;
+
+  @Field(() => String, { nullable: false, description: 'clientId' })
+  @IsUUID()
+  @ApiProperty({
+    example: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
+    type: String,
+    required: true,
+  })
+  clientId: string;
 }

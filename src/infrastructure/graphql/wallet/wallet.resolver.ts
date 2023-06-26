@@ -1,8 +1,10 @@
 import { Inject, UseFilters, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { AuthGuard } from '@nestjs/passport';
 import { WalletApplication } from '../../../core/application';
 import { WALLET_APPLICATION } from '../../../core/core.module';
 import { Client, Transaction } from '../../../core/domain';
+import { TypeOrmExceptionFilter } from '../../../infrastructure/http-server';
 import { WalletFilter } from '../../../infrastructure/http-server/exception-filters/wallet-exception.filter';
 import {
   ClientEntity,
@@ -13,8 +15,6 @@ import {
   CreateClientRequest,
   CreateTransactionRequest,
 } from '../../../infrastructure/shared/models';
-import { TypeOrmExceptionFilter } from 'src/infrastructure/http-server';
-import { AuthGuard } from '@nestjs/passport';
 
 /**
  * @description WalletResolver class for graphql resolver

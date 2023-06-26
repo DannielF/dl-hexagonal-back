@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { WalletResolver } from './wallet.resolver';
+import { CreateTransactionRequest } from '../../../infrastructure/shared/models';
 import { Client, Transaction, TransactionType } from '../../../core/domain';
+import { WalletResolver } from './wallet.resolver';
 
 const client = {
   clientId: '1',
@@ -15,6 +16,10 @@ const transaction = {
   to: 'doe',
   quantity: 10,
   date: new Date(),
+  type: TransactionType.TRANSFER,
+  client: {
+    clientId: '1',
+  },
 } as Transaction;
 
 const transactionTransfer = {
@@ -24,7 +29,8 @@ const transactionTransfer = {
   quantity: 10,
   type: TransactionType.TRANSFER,
   date: new Date(),
-} as Transaction;
+  clientId: '1',
+} as CreateTransactionRequest;
 
 const transactionDeposit = {
   transactionId: '1',
@@ -33,7 +39,8 @@ const transactionDeposit = {
   quantity: 10,
   type: TransactionType.DEPOSIT,
   date: new Date(),
-} as Transaction;
+  clientId: '1',
+} as CreateTransactionRequest;
 
 const transactionWithdraw = {
   transactionId: '1',
@@ -42,7 +49,8 @@ const transactionWithdraw = {
   quantity: 10,
   type: TransactionType.WITHDRAW,
   date: new Date(),
-} as Transaction;
+  clientId: '1',
+} as CreateTransactionRequest;
 
 describe('WalletResolver', () => {
   let resolver: WalletResolver;
@@ -105,17 +113,17 @@ describe('WalletResolver', () => {
   });
 
   it('should make a transfer', async () => {
-    const result = await resolver.makeTransfer(transaction);
+    const result = await resolver.makeTransfer(transactionTransfer);
     expect(result).toEqual(transactionTransfer);
   });
 
   it('should make a deposit', async () => {
-    const result = await resolver.makeDeposit(transaction);
+    const result = await resolver.makeDeposit(transactionDeposit);
     expect(result).toEqual(transactionDeposit);
   });
 
   it('should make a withdraw', async () => {
-    const result = await resolver.makeWithdraw(transaction);
+    const result = await resolver.makeWithdraw(transactionWithdraw);
     expect(result).toEqual(transactionWithdraw);
   });
 });
